@@ -1,0 +1,6 @@
+
+?squid:S3010"#Remove this assignment of "bookId".(ªº‚Õúÿÿÿÿ
+Lsquid:S2696"6Make the enclosing method "static" or remove this set.(×œÈ
+Asquid:S3010"%Remove this assignment of "bookList".(ÊüËÆúÿÿÿÿ
+Xsquid:S1854E"<Remove this useless assignment to local variable "bookTemp".(þå‘‹ÿÿÿÿÿ
+~squid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ËÚê×ùÿÿÿÿ8³Á•Ó‘-
