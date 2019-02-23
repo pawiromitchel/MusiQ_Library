@@ -9,20 +9,25 @@ import java.util.List;
 public class ArtistDTO {
 
     private Long id;
-    private String artist;
+    private String artistName;
     private List<Album> albumList;
     private ArtistTypeCode artistType;
+    private boolean isFollowed;
 
-    public ArtistDTO(Long id, String artist, List<Album> albumList, ArtistTypeCode artistType) {
+    public ArtistDTO(Long id, String artistName, List<Album> albumList,
+                     ArtistTypeCode artistType, boolean isFollowed) {
         this.id = id;
-        this.artist = artist;
+        this.artistName = artistName;
         this.albumList = albumList;
         this.artistType = artistType;
+        this.isFollowed = isFollowed;
     }
 
-    public ArtistDTO(Long id, String artist) {
+    public ArtistDTO(Long id, String artistName, ArtistTypeCode artistType, boolean isFollowed) {
         this.id = id;
-        this.artist = artist;
+        this.artistName = artistName;
+        this.artistType = artistType;
+        this.isFollowed = isFollowed;
     }
 
     public Long getId() {
@@ -33,12 +38,12 @@ public class ArtistDTO {
         this.id = id;
     }
 
-    public String getArtist() {
-        return artist;
+    public String getArtistName() {
+        return artistName;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 
     public List<Album> getAlbumList() {
@@ -55,5 +60,13 @@ public class ArtistDTO {
 
     public void setArtistType(ArtistTypeCode artistType) {
         this.artistType = artistType;
+    }
+
+    public boolean isFollowed() {
+        return isFollowed;
+    }
+
+    public void setFollowed(boolean followed) {
+        isFollowed = followed;
     }
 }

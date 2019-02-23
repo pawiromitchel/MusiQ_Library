@@ -12,7 +12,7 @@ public class Artist {
     private Long id;
 
     @Column(nullable = false)
-    private String artist;
+    private String artistName;
 
     @OneToMany(mappedBy = "artist")
     private List<Album> album;
@@ -27,8 +27,8 @@ public class Artist {
     public Artist() {
     }
 
-    public Artist(String artist, ArtistTypeCode artistType, boolean isFollowed) {
-        this.artist = artist;
+    public Artist(String artistName, ArtistTypeCode artistType, boolean isFollowed) {
+        this.artistName = artistName;
         this.artistType = artistType;
         this.isFollowed = isFollowed;
     }
@@ -41,12 +41,12 @@ public class Artist {
         this.id = id;
     }
 
-    public String getArtist() {
-        return artist;
+    public String getArtistName() {
+        return artistName;
     }
 
-    public void setArtist(String name) {
-        this.artist = name;
+    public void setArtistName(String name) {
+        this.artistName = name;
     }
 
     public ArtistTypeCode getArtistType() {

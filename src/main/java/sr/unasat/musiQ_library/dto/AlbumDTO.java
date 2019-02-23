@@ -1,12 +1,16 @@
 package sr.unasat.musiQ_library.dto;
 
-import sr.unasat.musiQ_library.entity.Album;
+import sr.unasat.musiQ_library.entity.Artist;
+import sr.unasat.musiQ_library.entity.Song;
+
+import java.util.List;
 
 public class AlbumDTO {
     private long id;
     private String albumTitle;
     private int releaseYear;
-    private Album album;
+    private Artist artist;
+    private List<Song> songList;
 
     public AlbumDTO(long id, String albumTitle, int releaseYear) {
         this.id = id;
@@ -14,11 +18,11 @@ public class AlbumDTO {
         this.releaseYear = releaseYear;
     }
 
-    public AlbumDTO(long id, String albumTitle, int releaseYear, Album album) {
+    public AlbumDTO(long id, String albumTitle, int releaseYear, Artist artist) {
         this.id = id;
         this.albumTitle = albumTitle;
         this.releaseYear = releaseYear;
-        this.album = album;
+        this.artist = artist;
     }
 
     public long getId() {
@@ -45,11 +49,19 @@ public class AlbumDTO {
         this.releaseYear = releaseYear;
     }
 
-    public Album getAlbum() {
-        return album;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setAlbum(Album album) {
-        this.album = album;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public List<Song> getSongList() {
+        return songList;
+    }
+
+    public void setSongList(List<Song> songList) {
+        this.songList = songList;
     }
 }

@@ -1,18 +1,20 @@
 package sr.unasat.musiQ_library.dto;
 
-import sr.unasat.musiQ_library.entity.Artist;
+import sr.unasat.musiQ_library.entity.Album;
 
 public class SongDTO {
     private long id;
     private String title;
     private int releaseYear;
-    private Artist artist;
+    private Album album;
+    private boolean isFavorite;
 
-    public SongDTO(long id, String title, int releaseYear, Artist artist) {
+    public SongDTO(long id, String title, int releaseYear, Album album, boolean isFavorite) {
         this.id = id;
         this.title = title;
         this.releaseYear = releaseYear;
-        this.artist = artist;
+        this.album = album;
+        this.isFavorite = isFavorite;
     }
 
     public long getId() {
@@ -39,4 +41,19 @@ public class SongDTO {
         this.releaseYear = releaseYear;
     }
 
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 }
