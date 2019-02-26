@@ -1,5 +1,6 @@
 package sr.unasat.musiQ_library.controller;
 
+import sr.unasat.musiQ_library.config.JPAConfiguration;
 import sr.unasat.musiQ_library.entity.Song;
 import sr.unasat.musiQ_library.service.SongService;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Path("song")
 public class SongController {
-    private SongService songService = new SongService();
+    private SongService songService = new SongService(JPAConfiguration.getEntityManager());
 
     @Path("/list")
     @GET

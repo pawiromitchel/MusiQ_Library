@@ -1,29 +1,23 @@
 package sr.unasat.musiQ_library.service;
 
-import sr.unasat.musiQ_library.entity.Artist;
-import sr.unasat.musiQ_library.entity.ArtistTypeCode;
+import sr.unasat.musiQ_library.dao.SongDAO;
 import sr.unasat.musiQ_library.entity.Song;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 public class SongService {
 
-    private static List<Song> songList;
     private static Long id;
+    private SongDAO songDAO;
+    private List<Song> songList;
 
-    public SongService() {
-        if (songList == null) {
-            id = 0L;
-            songList = new ArrayList<>();
-            songList.add(new Song(++id, "Living on A Prayer", 1986, false));
-            songList.add(new Song(++id, "Bohemian Rhapsody", 1986, true));
-            songList.add(new Song(++id, "The Real Slim Shady", 2000, true));
-        }
+    public SongService(EntityManager entityManager) {
+        songDAO = new SongDAO(entityManager);
     }
 
     public List<Song> findAll() {
-        return songList;
+        return songDAO.findAllSongs();
     }
 
     public Song add(Song song) {

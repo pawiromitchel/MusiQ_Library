@@ -29,3 +29,13 @@ f
 6src/main/java/sr/unasat/musiQ_library/entity/Song.java,4\8\48707642c142a00c8ca6d3ce45120432ce273d05
 t
 Dsrc/main/java/sr/unasat/musiQ_library/controller/SongController.java,5\7\57bba4e587f7e189fb8f37b926c9e90032909a3a
+g
+7src/main/java/sr/unasat/musiQ_library/dao/AlbumDAO.java,e\9\e9393023140b8c00b5543ac30a9198bc78ca0765
+h
+8src/main/java/sr/unasat/musiQ_library/dao/ArtistDAO.java,8\8\8881525e1a49ee51e5b897523d1e9e37c877436e
+f
+6src/main/java/sr/unasat/musiQ_library/dao/SongDAO.java,f\2\f2e4e9666a984bb05c99aac0b04d6e179bdd9cda
+j
+:src/main/java/sr/unasat/musiQ_library/dao/PlaylistDAO.java,e\6\e696d891130fedaeb4bbb8bc2ad052a4a072082a
+r
+Bsrc/main/java/sr/unasat/musiQ_library/config/JPAConfiguration.java,0\4\0420357639326c8a8d99145243ec68f845e7d6ac

@@ -16,11 +16,11 @@ public class Song {
     @Column(name = "release_year")
     private int releaseYear;
 
-    @ManyToOne
-    @JoinColumn(name = "album_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "album_id")
     private Album album;
 
-    @Column(name = "is_favorite")
+    @Column(name = "is_favorite", nullable = false)
     private boolean isFavorite;
 
     public Song() {

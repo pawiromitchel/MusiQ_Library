@@ -1,5 +1,7 @@
 package sr.unasat.musiQ_library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,17 +13,18 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "album_title")
+    @Column(name = "album_title", nullable = false)
     private String albumTitle;
 
-    @ManyToOne
-    @JoinColumn(name = "album_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;
 
     @Column(name = "release_year", nullable = false)
     private int releaseYear;
 
-    @OneToMany(mappedBy = "album")
+    @JsonIgnore
+    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
     private List<Song> songList;
 
     public Album() {
