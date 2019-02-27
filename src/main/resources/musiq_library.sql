@@ -110,12 +110,39 @@ SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `musiq_library`;
-INSERT INTO `musiq_library`.`artist` (`id`, `artist_name`, `artist_type`, `is_followed`)
-VALUES (1, 'Queen', 'BAND', 0);
-INSERT INTO `musiq_library`.`artist` (`id`, `artist_name`, `artist_type`, `is_followed`)
-VALUES (2, 'Bon Jovi', 'BAND', 0);
-INSERT INTO `musiq_library`.`artist` (`id`, `artist_name`, `artist_type`, `is_followed`)
-VALUES (3, 'Eminem', 'SOLO', 0);
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
+VALUES ('Queen', 'BAND', 0);
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
+VALUES ('Bon Jovi', 'BAND', 0);
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
+VALUES ('Eminem', 'SOLO', 0);
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
+VALUES ('Michael Jackson', 'SOLO', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('\'N Sync', 'BAND', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('NWA', 'GROUP', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('Linkin Park', 'BAND', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('Marroon 5', 'BAND', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('Bruno Mars', 'SOLO', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('Daft Punk', 'DUO', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('Alicia Keys', 'SOLO', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('Jay-Z', 'SOLO', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('Beyonce', 'SOLO', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('Destiny\'s Child', 'GROUP', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('Boyz II Men', 'GROUP', '0');
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`) 
+VALUES ('The Temptations', 'GROUP', '0');
+
 
 COMMIT;
 
@@ -125,12 +152,39 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `musiq_library`;
-INSERT INTO `musiq_library`.`album` (`id`, `album_title`, `artist_id`, `release_year`)
-VALUES (1, 'Bohemian Rhapsody', 1, 1975);
-INSERT INTO `musiq_library`.`album` (`id`, `album_title`, `artist_id`, `release_year`)
-VALUES (2, 'Slippery When Wet', 2, 1986);
-INSERT INTO `musiq_library`.`album` (`id`, `album_title`, `artist_id`, `release_year`)
-VALUES (3, 'The Marshall Mathers LP', 3, 2000);
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
+VALUES ('Bohemian Rhapsody', 1, 1975);
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
+VALUES ('Slippery When Wet', 2, 1986);
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
+VALUES ('The Marshall Mathers LP', 3, 2000);
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('Thriller', '4', '1982');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('No Strings Attached', '5', '2000');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('Straight Outta Compton', '6', '1988');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('Meteora', '7', '2003');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('Songs About Jane', '8', '2003');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('24K Magic', '9', '2016');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('Random Access Memories', '10', '2010');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('Songs in a Minor', '11', '2001');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('The Blueprint 3', '12', '2009');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('I Am... Sasha Fierce', '13', '2008');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('The Writing\'s on the Wall', '14', '1999');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('Boomerang Soundtrack', '15', '1992');
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`) 
+VALUES ('The Temptations Sing Smokey', '16', '1965');
+
 
 COMMIT;
 
@@ -140,12 +194,39 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `musiq_library`;
-INSERT INTO `musiq_library`.`song` (`id`, `title`, `release_year`, `album_id`, `is_favorite`)
-VALUES (1, 'Living on a Prayer', 1986, 2, 0);
-INSERT INTO `musiq_library`.`song` (`id`, `title`, `release_year`, `album_id`, `is_favorite`)
-VALUES (2, 'Bohemian Rhapsody', 1975, 1, 1);
-INSERT INTO `musiq_library`.`song` (`id`, `title`, `release_year`, `album_id`, `is_favorite`)
-VALUES (3, 'The Real Slim Shady', 2000, 3, 1);
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`)
+VALUES ('Living on a Prayer', 1986, 2, 0);
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`)
+VALUES ('Bohemian Rhapsody', 1975, 1, 0);
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`)
+VALUES ('The Real Slim Shady', 2000, 3, 0);
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('Thriller', '1982', '4', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('Bye Bye Bye', '2000', '5', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('F*ck the Police', '1988', '6', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('Numb', '2003', '7', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('This Love', '2003', '8', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('Finesse', '2016', '9', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('Get Lucky', '2010', '10', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('A Woman\'s Worth', '2001', '11', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('Empire State of Mind', '2009', '12', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('Single Ladies', '2008', '13', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('Say My Name', '1999', '14', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('End of the Road', '1992', '15', '0');
+INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
+VALUES ('My Girl', '1964', '16', '0');
+
 
 COMMIT;
 
