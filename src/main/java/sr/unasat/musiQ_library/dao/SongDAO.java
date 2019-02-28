@@ -47,7 +47,7 @@ public class SongDAO {
         return song;
     }
 
-    public Song delete(Song songToBeDeleted) {
+    public Song deleteSong(Song songToBeDeleted) {
         entityManager.getTransaction().begin();
         entityManager.remove(songToBeDeleted);
         entityManager.getTransaction().commit();

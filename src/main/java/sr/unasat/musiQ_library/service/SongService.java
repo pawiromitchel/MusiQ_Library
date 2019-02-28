@@ -42,7 +42,7 @@ public class SongService {
 
     public Song delete(Long id) {
         Song selectedSong = getSong(id);
-        Song deletedSong = songDAO.delete(selectedSong);
+        Song deletedSong = songDAO.deleteSong(selectedSong);
         iterate(selectedSong, deletedSong);
         return deletedSong;
     }
