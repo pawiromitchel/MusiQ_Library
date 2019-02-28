@@ -9,46 +9,40 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("song")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class SongController {
     private SongService songService = new SongService(JPAConfiguration.getEntityManager());
 
     @Path("/list")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<Song> findAll() {
         return songService.findAll();
     }
 
     @Path("/add")
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Song add(Song song) {
         return songService.add(song);
     }
 
-    @Path("/update")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Song update(Song song) {
+    @Path("/{songId}")
+    @PUT
+    public Song update(@PathParam("songId") Long id, Song song) {
+        song.setId(id);
         return songService.update(song);
     }
 
-    @Path("/remove")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Song remove(Song song) {
-        return songService.delete(song);
+    @Path("/{songId}")
+    @DELETE
+    public void remove(@PathParam("songId") Long id) {
+        songService.delete(id);
     }
 
-    @Path("/getSong")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Song getBook(Song song) {
-        return songService.getSong(song);
+    @Path("/{songId}")
+    @GET
+    public Song getSong(@PathParam("songId") Long id) {
+        return songService.getSong(id);
     }
 
 }

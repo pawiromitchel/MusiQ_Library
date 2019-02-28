@@ -4,70 +4,56 @@ import sr.unasat.musiQ_library.dao.SongDAO;
 import sr.unasat.musiQ_library.entity.Song;
 
 import javax.persistence.EntityManager;
+import java.util.Iterator;
 import java.util.List;
 
 public class SongService {
 
-    private static Long id;
     private SongDAO songDAO;
-    private List<Song> songList;
+    private static List<Song> songList;
 
     public SongService(EntityManager entityManager) {
         songDAO = new SongDAO(entityManager);
+        findAll();
     }
 
     public List<Song> findAll() {
-        return songDAO.findAllSongs();
+        if (songList != null) {
+            return songList;
+        }
+        return songList = songDAO.findAllSongs();
     }
 
     public Song add(Song song) {
-        song.setId(++id);
-        songList.add(song);
+        songList.add(songDAO.addSong(song));
         return song;
     }
 
-    public Song getSong(Song song) {
-        Song foundSong = new Song();
-
-        for (int i = 0; i< songList.size(); i++) {
-            if(songList.get(i).getId() == song.getId())
-            {
-                foundSong = songList.get(i);
-                break;
-            }
-        }
-
-        return foundSong;
+    public Song getSong(Long id) {
+        return songDAO.findSongById(id);
     }
 
     public Song update(Song song) {
-        for (int i = 0; i< songList.size(); i++) {
-            if(songList.get(i).getId() == song.getId())
-            {
-                songList.set(i, song);
-                break;
-            }
-        }
-
-        return song;
+        Song updatedSong = songDAO.updateSong(song);
+        iterate(song, updatedSong);
+        songList.add(updatedSong);
+        return updatedSong;
     }
 
-    public Song delete(Song song) {
-       int index = -1;
-
-        for (int i = 0; i< songList.size(); i++) {
-            if(songList.get(i).getId() == song.getId())
-            {
-                index = i;
-                break;
-            }
-        }
-        Song songTemp = new Song();
-        songTemp = songList.get(index);
-
-        songList.remove(index);
-        return songTemp;
+    public Song delete(Long id) {
+        Song selectedSong = getSong(id);
+        Song deletedSong = songDAO.delete(selectedSong);
+        iterate(selectedSong, deletedSong);
+        return deletedSong;
     }
 
+    private void iterate(Song song, Song modifiedSong) {
+        for (Iterator<Song> songIterator = songList.iterator(); songIterator.hasNext(); ) {
+            song = songIterator.next();
+            if (song.getId() == modifiedSong.getId()) {
+                songIterator.remove();
+            }
+        }
+    }
 }
 

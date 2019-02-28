@@ -35,8 +35,7 @@ public class Song {
         this.isFavorite = isFavorite;
     }
 
-    public Song(Long id, String title, int releaseYear, boolean isFavorite) {
-        this.id = id;
+    public Song(String title, int releaseYear, boolean isFavorite) {
         this.title = title;
         this.releaseYear = releaseYear;
         this.isFavorite = isFavorite;
