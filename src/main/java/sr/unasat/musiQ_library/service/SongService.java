@@ -18,9 +18,9 @@ public class SongService {
     }
 
     public List<Song> findAll() {
-        if (songList != null) {
-            return songList;
-        }
+//        if (songList != null || songList.size() != 0) {
+//            return songList;
+//        }
         return songList = songDAO.findAllSongs();
     }
 

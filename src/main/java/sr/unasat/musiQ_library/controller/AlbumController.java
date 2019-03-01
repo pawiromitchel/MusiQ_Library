@@ -1,48 +1,48 @@
 package sr.unasat.musiQ_library.controller;
 
 import sr.unasat.musiQ_library.config.JPAConfiguration;
-import sr.unasat.musiQ_library.entity.Song;
-import sr.unasat.musiQ_library.service.SongService;
+import sr.unasat.musiQ_library.entity.Album;
+import sr.unasat.musiQ_library.service.AlbumService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("song")
+@Path("album")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AlbumController {
-    private SongService songService = new SongService(JPAConfiguration.getEntityManager());
+    private AlbumService albumService = new AlbumService(JPAConfiguration.getEntityManager());
 
     @Path("/list")
     @GET
-    public List<Song> findAll() {
-        return songService.findAll();
+    public List<Album> findAll() {
+        return albumService.findAll();
     }
 
     @Path("/add")
     @POST
-    public Song add(Song song) {
-        return songService.add(song);
+    public Album add(Album album) {
+        return albumService.add(album);
     }
 
-    @Path("/{songId}")
+    @Path("/{albumId}")
     @PUT
-    public Song update(@PathParam("songId") Long id, Song song) {
-        song.setId(id);
-        return songService.update(song);
+    public Album update(@PathParam("albumId") Long id, Album album) {
+        album.setId(id);
+        return albumService.update(album);
     }
 
-    @Path("/{songId}")
+    @Path("/{albumId}")
     @DELETE
-    public void remove(@PathParam("songId") Long id) {
-        songService.delete(id);
+    public void remove(@PathParam("albumId") Long id) {
+        albumService.delete(id);
     }
 
-    @Path("/{songId}")
+    @Path("/{albumId}")
     @GET
-    public Song getSong(@PathParam("songId") Long id) {
-        return songService.getSong(id);
+    public Album getSong(@PathParam("albumId") Long id) {
+        return albumService.getAlbum(id);
     }
 
 }
