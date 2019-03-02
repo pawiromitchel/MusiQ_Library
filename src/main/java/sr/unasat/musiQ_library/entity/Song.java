@@ -1,6 +1,7 @@
 package sr.unasat.musiQ_library.entity;
 
 import javax.persistence.*;
+import javax.ws.rs.DefaultValue;
 
 @Entity
 @Table
@@ -10,7 +11,7 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false, unique = true)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "release_year")
@@ -21,6 +22,7 @@ public class Song {
     private Album album;
 
     @Column(name = "is_favorite")
+    @DefaultValue(value = "false")
     private boolean isFavorite;
 
     public Song() {

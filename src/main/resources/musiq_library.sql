@@ -27,9 +27,9 @@ DROP TABLE IF EXISTS `musiq_library`.`artist`;
 CREATE TABLE IF NOT EXISTS `musiq_library`.`artist`
 (
   `id`          BIGINT(4)   NOT NULL AUTO_INCREMENT,
-  `artist_name` VARCHAR(45) NOT NULL,
+  `artist_name` VARCHAR(45) NOT NULL UNIQUE,
   `artist_type` VARCHAR(45) NOT NULL,
-  `is_followed` INT(1)      NOT NULL,
+  `is_followed` INT(1)      NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB;
@@ -43,9 +43,9 @@ DROP TABLE IF EXISTS `musiq_library`.`album`;
 CREATE TABLE IF NOT EXISTS `musiq_library`.`album`
 (
   `id`           BIGINT(4)   NOT NULL AUTO_INCREMENT,
-  `album_title`  VARCHAR(45) NOT NULL,
+  `album_title`  VARCHAR(45) NOT NULL UNIQUE,
   `artist_id`    BIGINT(4)   NOT NULL,
-  `release_year` INT(4)      NOT NULL,
+  `release_year` INT(4)      NOT NULL DEFAULT 1980,
   PRIMARY KEY (`id`),
   INDEX `artist_id_idx` (`artist_id` ASC) VISIBLE,
   CONSTRAINT `artist_id`
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `musiq_library`.`song`
   `title`        VARCHAR(45) NOT NULL,
   `release_year` INT(4)      NULL,
   `album_id`     BIGINT(4)   NULL,
-  `is_favorite`  INT(1)      NOT NULL,
+  `is_favorite`  INT(1)      NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `album_id_idx` (`album_id` ASC) VISIBLE,
   CONSTRAINT `album_id`
@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS `musiq_library`.`playlist`;
 CREATE TABLE IF NOT EXISTS `musiq_library`.`playlist`
 (
   `id`            BIGINT(4)   NOT NULL AUTO_INCREMENT,
-  `playlist_name` VARCHAR(45) NOT NULL,
+  `playlist_name` VARCHAR(45) NOT NULL UNIQUE,
   `song_id`       BIGINT(4)   NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `song_id_idx` (`song_id` ASC) VISIBLE,

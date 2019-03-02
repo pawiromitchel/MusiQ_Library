@@ -13,7 +13,7 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "album_title", nullable = false)
+    @Column(name = "album_title", nullable = false, unique = true)
     private String albumTitle;
 
     @ManyToOne(fetch = FetchType.EAGER)

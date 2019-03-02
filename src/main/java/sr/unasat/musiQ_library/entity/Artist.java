@@ -3,6 +3,7 @@ package sr.unasat.musiQ_library.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.ws.rs.DefaultValue;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,7 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "artist_name", nullable = false)
+    @Column(name = "artist_name", nullable = false, unique = true)
     private String artistName;
 
     @JsonIgnore
@@ -25,6 +26,7 @@ public class Artist {
     private ArtistTypeCode artistType;
 
     @Column(name = "is_followed", nullable = false)
+    @DefaultValue(value = "false")
     private boolean isFollowed;
 
     public Artist() {

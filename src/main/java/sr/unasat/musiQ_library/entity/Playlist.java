@@ -10,7 +10,7 @@ public class Playlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "playlist_name", nullable = false)
+    @Column(name = "playlist_name", nullable = false, unique = true)
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
