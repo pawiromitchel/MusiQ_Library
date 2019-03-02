@@ -26,7 +26,7 @@ public class SongController {
         for (Song song : songs) {
             songDTOS.add(setSongInfo(song));
         }
-        return Response.status(Response.Status.OK).entity(songDTOS).build();
+        return Response.ok(songDTOS).build();
     }
 
     @Path("/add")
@@ -72,7 +72,7 @@ public class SongController {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        return Response.ok(song, MediaType.APPLICATION_JSON).build();
+        return Response.ok(song).build();
     }
 
     private SongDTO setSongInfo(Song song) {
