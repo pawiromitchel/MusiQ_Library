@@ -1,35 +1,54 @@
 package sr.unasat.musiQ_library.dto;
 
+import sr.unasat.musiQ_library.designPatterns.decorator.AlbumDecorator;
+import sr.unasat.musiQ_library.designPatterns.decorator.DecoratorBase;
 import sr.unasat.musiQ_library.entity.Artist;
-import sr.unasat.musiQ_library.entity.Song;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class AlbumDTO {
-    private long id;
+public class AlbumDTO extends AlbumDecorator {
+    @NotNull
+    private Long id;
+    @NotNull
     private String albumTitle;
+    @Max(4)
     private int releaseYear;
+    @NotNull
     private Artist artist;
-    private List<Song> songList;
+    private List<SongDTO> songs;
+    private DecoratorBase decoratorBase = new AlbumDecorator();
 
-    public AlbumDTO(long id, String albumTitle, int releaseYear) {
-        this.id = id;
-        this.albumTitle = albumTitle;
-        this.releaseYear = releaseYear;
+    public AlbumDTO() {
     }
 
-    public AlbumDTO(long id, String albumTitle, int releaseYear, Artist artist) {
+    public AlbumDTO(Long id, String albumTitle, int releaseYear, Artist artist) {
         this.id = id;
         this.albumTitle = albumTitle;
         this.releaseYear = releaseYear;
         this.artist = artist;
     }
 
-    public long getId() {
+    public AlbumDTO(Long id, String albumTitle, int releaseYear, Artist artist, List<SongDTO> songs) {
+        this.id = id;
+        this.albumTitle = albumTitle;
+        this.releaseYear = releaseYear;
+        this.artist = artist;
+        this.songs = songs;
+    }
+
+    public AlbumDTO(String albumTitle, int releaseYear, Artist artist) {
+        this.albumTitle = albumTitle;
+        this.releaseYear = releaseYear;
+        this.artist = artist;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,11 +76,11 @@ public class AlbumDTO {
         this.artist = artist;
     }
 
-    public List<Song> getSongList() {
-        return songList;
-    }
-
-    public void setSongList(List<Song> songList) {
-        this.songList = songList;
+    public void setSongList(List<SongDTO> songList) {
+        for (SongDTO song : songList) {
+            decoratorBase.addSongs(song);
+            songs.add(song);
+        }
+        this.songs = songList;
     }
 }

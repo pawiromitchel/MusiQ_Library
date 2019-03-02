@@ -2,6 +2,8 @@ package sr.unasat.musiQ_library.service;
 
 import sr.unasat.musiQ_library.dao.AlbumDAO;
 import sr.unasat.musiQ_library.entity.Album;
+import sr.unasat.musiQ_library.entity.Artist;
+import sr.unasat.musiQ_library.entity.Song;
 
 import javax.persistence.EntityManager;
 import java.util.Iterator;
@@ -10,21 +12,29 @@ import java.util.List;
 public class AlbumService {
 
     private AlbumDAO albumDAO;
+    private ArtistService artistService;
+    private SongService songService;
     private static List<Album> albums;
 
     public AlbumService(EntityManager entityManager) {
         albumDAO = new AlbumDAO(entityManager);
+        artistService = new ArtistService(entityManager);
+        songService = new SongService(entityManager);
         findAll();
     }
 
     public List<Album> findAll() {
-        if (albums != null) {
-            return albums;
-        }
         return albums = albumDAO.findAllAlbums();
     }
 
     public Album add(Album album) {
+        List<Artist> artists = artistService.findAll();
+        for (Artist artist : artists) {
+            if (!artist.getArtistName().toLowerCase().equals(album.getArtist().getArtistName().toLowerCase())) {
+                artistService.add(album.getArtist());
+                break;
+            }
+        }
         albums.add(albumDAO.addAlbum(album));
         return album;
     }
@@ -54,6 +64,14 @@ public class AlbumService {
                 albumIterator.remove();
             }
         }
+    }
+
+    public void addSongsToAlbum(Long albumId, List<Song> songs) {
+        Album album = getAlbum(albumId);
+        for (Song song : songs) {
+            songService.add(song);
+        }
+        update(album);
     }
 }
 

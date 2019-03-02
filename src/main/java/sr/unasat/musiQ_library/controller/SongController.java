@@ -24,7 +24,7 @@ public class SongController {
         List<SongDTO> songDTOS = new ArrayList<>();
         List<Song> songs = songService.findAll();
         for (Song song : songs) {
-            songDTOS.add(setSongInfo(song));
+            songDTOS.add(convertSongToDTO(song));
         }
         return Response.ok(songDTOS).build();
     }
@@ -33,7 +33,7 @@ public class SongController {
     @POST
     public Response add(@Valid SongDTO songDTO) {
         try {
-            songService.add(getSongDTOInfo(songDTO));
+            songService.add(convertDtoToSong(songDTO));
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -45,7 +45,7 @@ public class SongController {
     public Response update(@PathParam("songId") Long id, @Valid SongDTO songDTO) {
         try {
             songDTO.setId(id);
-            songService.update(getSongDTOInfo(songDTO));
+            songService.update(convertDtoToSong(songDTO));
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -75,12 +75,12 @@ public class SongController {
         return Response.ok(song).build();
     }
 
-    private SongDTO setSongInfo(Song song) {
+    SongDTO convertSongToDTO(Song song) {
         return new SongDTO(song.getId(), song.getTitle(),
                 song.getReleaseYear(), song.getAlbum(), song.isFavorite());
     }
 
-    private Song getSongDTOInfo(SongDTO songDTO) {
+    Song convertDtoToSong(SongDTO songDTO) {
         if (songDTO.getAlbum() != null) {
             return new Song(songDTO.getTitle(),
                     songDTO.getReleaseYear(), songDTO.getAlbum(), songDTO.isFavorite());
