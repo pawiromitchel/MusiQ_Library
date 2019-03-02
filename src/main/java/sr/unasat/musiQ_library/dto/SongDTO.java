@@ -2,9 +2,14 @@ package sr.unasat.musiQ_library.dto;
 
 import sr.unasat.musiQ_library.entity.Album;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+
 public class SongDTO {
     private long id;
+    @NotNull
     private String title;
+    @Max(4)
     private int releaseYear;
     private Album album;
     private boolean isFavorite;
@@ -15,6 +20,9 @@ public class SongDTO {
         this.releaseYear = releaseYear;
         this.album = album;
         this.isFavorite = isFavorite;
+    }
+
+    public SongDTO() {
     }
 
     public long getId() {

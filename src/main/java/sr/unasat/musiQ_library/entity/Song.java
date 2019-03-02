@@ -10,7 +10,7 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false, unique = true)
     private String title;
 
     @Column(name = "release_year")
@@ -20,7 +20,7 @@ public class Song {
     @JoinColumn(name = "album_id")
     private Album album;
 
-    @Column(name = "is_favorite", nullable = false)
+    @Column(name = "is_favorite")
     private boolean isFavorite;
 
     public Song() {
@@ -41,43 +41,50 @@ public class Song {
         this.isFavorite = isFavorite;
     }
 
-    public Long getId() {
-        return id;
+    public Song(String title, int releaseYear, Album album, boolean isFavorite) {
+        this.title = title;
+        this.releaseYear = releaseYear;
+        this.album = album;
+        this.isFavorite = isFavorite;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public int getReleaseYear() {
         return releaseYear;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
 
-    public Album getAlbum() {
-        return album;
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
     public void setAlbum(Album album) {
         this.album = album;
     }
 
-    public boolean isFavorite() {
-        return isFavorite;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
+    public boolean isFavorite() {
+        return isFavorite;
     }
 }
