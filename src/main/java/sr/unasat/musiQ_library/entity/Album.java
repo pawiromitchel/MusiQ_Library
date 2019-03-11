@@ -13,7 +13,7 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "album_title", nullable = false, unique = true)
+    @Column(name = "album_title", nullable = false)
     private String albumTitle;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -68,11 +68,30 @@ public class Album {
         this.releaseYear = releaseYear;
     }
 
-    public List<Song> getSongList() {
-        return songList;
-    }
+//    public List<String> getSongTitles() {
+//        List<String> songs = new ArrayList<>();
+//        for (Song song : songList){
+//            songs.add(song.getTitle());
+//        }
+//        return songs;
+//    }
+
+//    public void setSongTitles(List<String> songList) {
+//        for (int i = 0; i < songList.size(); i++){
+//            for (int j = 0; j < this.songList.size(); j++){
+//                if (this.songList.get(j).getTitle().equals(songList.get(i))){
+//                    this.songList.add(new Song(songList.get(i)));
+//                    break;
+//                }
+//            }
+//        }
+//    }
 
     public void setSongList(List<Song> songList) {
         this.songList = songList;
+    }
+
+    public List<Song> getSongList() {
+        return songList;
     }
 }

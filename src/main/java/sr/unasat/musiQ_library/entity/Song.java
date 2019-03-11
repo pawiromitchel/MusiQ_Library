@@ -37,10 +37,8 @@ public class Song {
         this.isFavorite = isFavorite;
     }
 
-    public Song(String title, int releaseYear, boolean isFavorite) {
+    public Song(String title) {
         this.title = title;
-        this.releaseYear = releaseYear;
-        this.isFavorite = isFavorite;
     }
 
     public Song(String title, int releaseYear, Album album, boolean isFavorite) {

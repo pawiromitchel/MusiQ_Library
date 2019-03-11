@@ -4,29 +4,41 @@ import sr.unasat.musiQ_library.entity.Song;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SongDAO {
 
     private EntityManager entityManager;
+    private List<Song> songList;
 
     public SongDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
+        findAllSongs();
     }
 
     public List<Song> findAllSongs() {
         entityManager.getTransaction().begin();
         String jpql = "select s from Song s";
         TypedQuery<Song> query = entityManager.createQuery(jpql, Song.class);
-        List<Song> songList = query.getResultList();
+        songList = query.getResultList();
         entityManager.getTransaction().commit();
         return songList;
     }
 
     public Song addSong(Song song) {
         entityManager.getTransaction().begin();
-        entityManager.persist(song);
-        entityManager.getTransaction().commit();
+        List<Song> list = new ArrayList<>();
+        for (int i = 0; i < songList.size(); i++) {
+            if (songList.get(i).getTitle().equals(song.getTitle())) {
+                continue;
+            }
+            list = songList.stream().filter(s -> songList.contains(!s.getTitle().equals(song.getTitle())))
+                    .collect(Collectors.toList());
+            entityManager.persist(song);
+            entityManager.getTransaction().commit();
+        }
         return song;
     }
 

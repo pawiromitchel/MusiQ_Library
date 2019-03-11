@@ -1,5 +1,6 @@
 package sr.unasat.musiQ_library.controller;
 
+import org.modelmapper.ModelMapper;
 import sr.unasat.musiQ_library.config.JPAConfiguration;
 import sr.unasat.musiQ_library.dto.SongDTO;
 import sr.unasat.musiQ_library.entity.Song;
@@ -17,14 +18,17 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class SongController {
     private SongService songService = new SongService(JPAConfiguration.getEntityManager());
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Path("/list")
     @GET
     public Response findAll() {
         List<SongDTO> songDTOS = new ArrayList<>();
         List<Song> songs = songService.findAll();
+        SongDTO songDTO;
         for (Song song : songs) {
-            songDTOS.add(convertSongToDTO(song));
+            songDTO = modelMapper.map(song, SongDTO.class);
+            songDTOS.add(songDTO);
         }
         return Response.ok(songDTOS).build();
     }
@@ -33,7 +37,8 @@ public class SongController {
     @POST
     public Response add(@Valid SongDTO songDTO) {
         try {
-            songService.add(convertDtoToSong(songDTO));
+            Song song = modelMapper.map(songDTO, Song.class);
+            songService.add(song);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -45,7 +50,8 @@ public class SongController {
     public Response update(@PathParam("songId") Long id, @Valid SongDTO songDTO) {
         try {
             songDTO.setId(id);
-            songService.update(convertDtoToSong(songDTO));
+            Song song = modelMapper.map(songDTO, Song.class);
+            songService.update(song);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -66,27 +72,13 @@ public class SongController {
     @Path("/{songId}")
     @GET
     public Response getSong(@PathParam("songId") Long id) {
-        Song song = null;
+        SongDTO songDTO;
         try {
-            song = songService.getSong(id);
+            songDTO = modelMapper.map(songService.getSong(id), SongDTO.class);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        return Response.ok(song).build();
-    }
-
-    SongDTO convertSongToDTO(Song song) {
-        return new SongDTO(song.getId(), song.getTitle(),
-                song.getReleaseYear(), song.getAlbum(), song.isFavorite());
-    }
-
-    Song convertDtoToSong(SongDTO songDTO) {
-        if (songDTO.getAlbum() != null) {
-            return new Song(songDTO.getTitle(),
-                    songDTO.getReleaseYear(), songDTO.getAlbum(), songDTO.isFavorite());
-        }
-        return new Song(songDTO.getTitle(),
-                songDTO.getReleaseYear(), songDTO.isFavorite());
+        return Response.ok(songDTO).build();
     }
 
 }

@@ -1,6 +1,7 @@
 package sr.unasat.musiQ_library.dao;
 
 import sr.unasat.musiQ_library.entity.Album;
+import sr.unasat.musiQ_library.entity.Song;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -42,6 +43,14 @@ public class AlbumDAO {
 
     public Album updateAlbum(Album album) {
         entityManager.getTransaction().begin();
+        if (album.getSongList() != null) {
+            List<Song> songs = album.getSongList();
+            for (int i = 0; i < songs.size(); i++) {
+                String songTitle = songs.get(i).getTitle();
+                songs.add(new Song(songTitle, album.getReleaseYear(), album, false));
+            }
+            album.setSongList(songs);
+        }
         entityManager.merge(album);
         entityManager.getTransaction().commit();
         return album;

@@ -1,5 +1,6 @@
 package sr.unasat.musiQ_library.controller;
 
+import org.modelmapper.ModelMapper;
 import sr.unasat.musiQ_library.config.JPAConfiguration;
 import sr.unasat.musiQ_library.dto.AlbumDTO;
 import sr.unasat.musiQ_library.dto.SongDTO;
@@ -19,15 +20,18 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class AlbumController {
     private AlbumService albumService = new AlbumService(JPAConfiguration.getEntityManager());
-    private SongController songController = new SongController();
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Path("/list")
     @GET
     public Response findAll() {
         List<AlbumDTO> albumDTOS = new ArrayList<>();
+        AlbumDTO albumDTO;
         List<Album> albums = albumService.findAll();
         for (Album album : albums) {
-            albumDTOS.add(convertAlbumToDTO(album));
+            albumDTO = modelMapper.map(album, AlbumDTO.class);
+//            albumDTO.setSongList(albumDTO.getSongs());
+            albumDTOS.add(albumDTO);
         }
         return Response.ok(albumDTOS).build();
     }
@@ -36,7 +40,8 @@ public class AlbumController {
     @POST
     public Response add(@Valid AlbumDTO albumDTO) {
         try {
-            albumService.add(convertDtoToAlbum(albumDTO));
+            Album album = modelMapper.map(albumDTO, Album.class);
+            albumService.add(album);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -48,7 +53,8 @@ public class AlbumController {
     public Response update(@PathParam("albumId") Long id, @Valid AlbumDTO albumDTO) {
         try {
             albumDTO.setId(id);
-            albumService.update(convertDtoToAlbum(albumDTO));
+            Album album = modelMapper.map(albumDTO, Album.class);
+            albumService.update(album);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
@@ -69,43 +75,21 @@ public class AlbumController {
     @Path("/{albumId}")
     @GET
     public Response getAlbum(@PathParam("albumId") Long id) {
-        AlbumDTO albumDTO = null;
+        AlbumDTO albumDTO;
         try {
-            albumDTO = convertAlbumToDTO(albumService.getAlbum(id));
+            albumDTO = modelMapper.map(albumService.getAlbum(id), AlbumDTO.class);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok(albumDTO).build();
     }
 
-    private AlbumDTO convertAlbumToDTO(Album album) {
-        AlbumDTO albumDTO = new AlbumDTO(album.getId(), album.getAlbumTitle(),
-                album.getReleaseYear(), album.getArtist());
-        if (album.getSongList() != null) {
-            List<Song> albumSongs = album.getSongList();
-            SongDTO songDTO;
-            List<SongDTO> convertedSong = new ArrayList<>();
-            for (Song song : albumSongs) {
-                songDTO = songController.convertSongToDTO(song);
-                convertedSong.add(songDTO);
-            }
-            albumDTO.setSongList(convertedSong);
-        }
-        return albumDTO;
-    }
-
-    private Album convertDtoToAlbum(AlbumDTO albumDTO) {
-        return new Album(albumDTO.getAlbumTitle(), albumDTO.getArtist(),
-                albumDTO.getReleaseYear());
-    }
-
     @Path("/{albumId}/songs")
     @GET
     public List<String> getSongsFromAlbum(@PathParam("albumId") Long albumId) {
-        AlbumDTO albumDTO = convertAlbumToDTO(albumService.getAlbum(albumId));
-        List<SongDTO> songs = albumDTO.getSongs();
+        AlbumDTO albumDTO = modelMapper.map(albumService.getAlbum(albumId), AlbumDTO.class);
         List<String> titles = new ArrayList<>();
-        for (SongDTO song : songs) {
+        for (SongDTO song : albumDTO.getSongs()) {
             titles.add(song.getTitle());
         }
         return titles;
@@ -114,10 +98,14 @@ public class AlbumController {
     @Path("/add/{albumId}/songs")
     @POST
     public void addSongsToAlbum(@PathParam("albumId") Long albumId, @Valid List<SongDTO> songDTOs) {
-        List<Song> songs = new ArrayList<>();
-        for (SongDTO songDTO : songDTOs) {
-            songs.add(songController.convertDtoToSong(songDTO));
+        Album album = albumService.getAlbum(albumId);
+        List<String> albumSongs = new ArrayList<>();
+        for (Song song : album.getSongList()) {
+            albumSongs.add(song.getTitle());
         }
-        albumService.addSongsToAlbum(albumId, songs);
+        for (SongDTO songDTO : songDTOs) {
+            albumSongs.add(songDTO.getTitle());
+        }
+        albumService.addSongsToAlbum(albumId, albumSongs);
     }
 }

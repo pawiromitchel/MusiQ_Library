@@ -14,12 +14,17 @@ public class SongDTO {
     private Album album;
     private boolean isFavorite;
 
-    public SongDTO(long id, String title, int releaseYear, Album album, boolean isFavorite) {
+    public SongDTO(String title, int releaseYear, Album album, boolean isFavorite) {
         this.id = id;
         this.title = title;
         this.releaseYear = releaseYear;
         this.album = album;
         this.isFavorite = isFavorite;
+    }
+
+    public SongDTO(String title, int releaseYear) {
+        this.title = title;
+        this.releaseYear = releaseYear;
     }
 
     public SongDTO() {

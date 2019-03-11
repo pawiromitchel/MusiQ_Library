@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS `musiq_library`.`album`;
 CREATE TABLE IF NOT EXISTS `musiq_library`.`album`
 (
   `id`           BIGINT(4)   NOT NULL AUTO_INCREMENT,
-  `album_title`  VARCHAR(45) NOT NULL UNIQUE,
+  `album_title`  VARCHAR(45) NOT NULL,
   `artist_id`    BIGINT(4)   NOT NULL,
   `release_year` INT(4)      NOT NULL DEFAULT 1980,
   PRIMARY KEY (`id`),

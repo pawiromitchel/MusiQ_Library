@@ -25,6 +25,9 @@ public class SongService {
     }
 
     public Song add(Song song) {
+        if (song.getAlbum() != null) {
+            song.setAlbum(song.getAlbum());
+        }
         songList.add(songDAO.addSong(song));
         return song;
     }

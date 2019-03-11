@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DecoratorBase {
 
-    void addSongs(SongDTO... songs);
+    void addSong(SongDTO song);
 
     List<SongDTO> getSongs();
 

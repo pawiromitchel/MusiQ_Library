@@ -3,7 +3,6 @@ package sr.unasat.musiQ_library.designPatterns.decorator;
 import sr.unasat.musiQ_library.dto.SongDTO;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AlbumDecorator implements DecoratorBase {
@@ -11,9 +10,9 @@ public class AlbumDecorator implements DecoratorBase {
     private List<SongDTO> songList;
 
     @Override
-    public void addSongs(SongDTO... songs) {
+    public void addSong(SongDTO song) {
         songList = new ArrayList<>();
-        Collections.addAll(songList, songs);
+        songList.add(song);
     }
 
     @Override

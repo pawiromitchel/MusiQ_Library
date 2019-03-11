@@ -6,6 +6,7 @@ import sr.unasat.musiQ_library.entity.Artist;
 import sr.unasat.musiQ_library.entity.Song;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -66,12 +67,17 @@ public class AlbumService {
         }
     }
 
-    public void addSongsToAlbum(Long albumId, List<Song> songs) {
+    public void addSongsToAlbum(Long albumId, List<String> songs) {
         Album album = getAlbum(albumId);
-        for (Song song : songs) {
-            songService.add(song);
+        List<Song> songList = new ArrayList<>();
+        for (String song : songs) {
+            Song addedSong = songService.add(new Song(song, album.getReleaseYear(), album, false));
+            songList.add(addedSong);
         }
+        album.setSongList(songList);
         update(album);
     }
+
+
 }
 
