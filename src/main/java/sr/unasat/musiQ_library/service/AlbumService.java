@@ -2,11 +2,9 @@ package sr.unasat.musiQ_library.service;
 
 import sr.unasat.musiQ_library.dao.AlbumDAO;
 import sr.unasat.musiQ_library.entity.Album;
-import sr.unasat.musiQ_library.entity.Artist;
 import sr.unasat.musiQ_library.entity.Song;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,14 +27,9 @@ public class AlbumService {
     }
 
     public Album add(Album album) {
-        List<Artist> artists = artistService.findAll();
-        for (Artist artist : artists) {
-            if (!artist.getArtistName().toLowerCase().equals(album.getArtist().getArtistName().toLowerCase())) {
-                artistService.add(album.getArtist());
-                break;
-            }
-        }
-        albums.add(albumDAO.addAlbum(album));
+        artistService.add(album.getArtist());
+        albumDAO.addAlbum(album);
+        albums.add(album);
         return album;
     }
 
@@ -53,6 +46,10 @@ public class AlbumService {
 
     public Album delete(Long id) {
         Album selectedAlbum = getAlbum(id);
+        for (Song song : selectedAlbum.getSongList()) {
+            song.setAlbum(null);
+        }
+        selectedAlbum.setSongList(null);
         Album deletedAlbum = albumDAO.deleteAlbum(selectedAlbum);
         iterate(selectedAlbum, deletedAlbum);
         return deletedAlbum;
@@ -67,14 +64,12 @@ public class AlbumService {
         }
     }
 
-    public void addSongsToAlbum(Long albumId, List<String> songs) {
-        Album album = getAlbum(albumId);
-        List<Song> songList = new ArrayList<>();
-        for (String song : songs) {
-            Song addedSong = songService.add(new Song(song, album.getReleaseYear(), album, false));
-            songList.add(addedSong);
+    public void addSongsToAlbum(Album album, List<Song> songs) {
+        album.setSongList(songs);
+        for (Song s : songs) {
+            s.setAlbum(album);
+            songService.add(s);
         }
-        album.setSongList(songList);
         update(album);
     }
 

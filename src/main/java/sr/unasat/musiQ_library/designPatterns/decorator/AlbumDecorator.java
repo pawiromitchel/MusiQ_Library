@@ -16,7 +16,12 @@ public class AlbumDecorator implements DecoratorBase {
     }
 
     @Override
-    public List<SongDTO> getSongs() {
+    public List<SongDTO> getSongList() {
         return songList;
+    }
+
+    @Override
+    public void setSongList(List<SongDTO> songList) {
+        this.songList = songList;
     }
 }

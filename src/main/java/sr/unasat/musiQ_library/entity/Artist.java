@@ -25,7 +25,7 @@ public class Artist {
     @Column(name = "artist_type", nullable = false)
     private ArtistTypeCode artistType;
 
-    @Column(name = "is_followed", nullable = false)
+    @Column(name = "is_followed")
     @DefaultValue(value = "false")
     private boolean isFollowed;
 

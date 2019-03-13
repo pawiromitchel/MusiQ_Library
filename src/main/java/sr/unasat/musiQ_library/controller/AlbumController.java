@@ -30,7 +30,6 @@ public class AlbumController {
         List<Album> albums = albumService.findAll();
         for (Album album : albums) {
             albumDTO = modelMapper.map(album, AlbumDTO.class);
-//            albumDTO.setSongList(albumDTO.getSongs());
             albumDTOS.add(albumDTO);
         }
         return Response.ok(albumDTOS).build();
@@ -89,7 +88,7 @@ public class AlbumController {
     public List<String> getSongsFromAlbum(@PathParam("albumId") Long albumId) {
         AlbumDTO albumDTO = modelMapper.map(albumService.getAlbum(albumId), AlbumDTO.class);
         List<String> titles = new ArrayList<>();
-        for (SongDTO song : albumDTO.getSongs()) {
+        for (SongDTO song : albumDTO.getSongList()) {
             titles.add(song.getTitle());
         }
         return titles;
@@ -99,13 +98,11 @@ public class AlbumController {
     @POST
     public void addSongsToAlbum(@PathParam("albumId") Long albumId, @Valid List<SongDTO> songDTOs) {
         Album album = albumService.getAlbum(albumId);
-        List<String> albumSongs = new ArrayList<>();
-        for (Song song : album.getSongList()) {
-            albumSongs.add(song.getTitle());
+        List<Song> albumSongs = album.getSongList();
+        for (SongDTO s : songDTOs) {
+            Song song = modelMapper.map(s, Song.class);
+            albumSongs.add(song);
         }
-        for (SongDTO songDTO : songDTOs) {
-            albumSongs.add(songDTO.getTitle());
-        }
-        albumService.addSongsToAlbum(albumId, albumSongs);
+        albumService.addSongsToAlbum(album, albumSongs);
     }
 }

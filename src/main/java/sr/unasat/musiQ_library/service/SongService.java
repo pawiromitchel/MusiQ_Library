@@ -18,16 +18,10 @@ public class SongService {
     }
 
     public List<Song> findAll() {
-//        if (songList != null || songList.size() != 0) {
-//            return songList;
-//        }
         return songList = songDAO.findAllSongs();
     }
 
     public Song add(Song song) {
-        if (song.getAlbum() != null) {
-            song.setAlbum(song.getAlbum());
-        }
         songList.add(songDAO.addSong(song));
         return song;
     }

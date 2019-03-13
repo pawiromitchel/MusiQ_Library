@@ -68,25 +68,6 @@ public class Album {
         this.releaseYear = releaseYear;
     }
 
-//    public List<String> getSongTitles() {
-//        List<String> songs = new ArrayList<>();
-//        for (Song song : songList){
-//            songs.add(song.getTitle());
-//        }
-//        return songs;
-//    }
-
-//    public void setSongTitles(List<String> songList) {
-//        for (int i = 0; i < songList.size(); i++){
-//            for (int j = 0; j < this.songList.size(); j++){
-//                if (this.songList.get(j).getTitle().equals(songList.get(i))){
-//                    this.songList.add(new Song(songList.get(i)));
-//                    break;
-//                }
-//            }
-//        }
-//    }
-
     public void setSongList(List<Song> songList) {
         this.songList = songList;
     }

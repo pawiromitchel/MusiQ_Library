@@ -2,13 +2,16 @@ package sr.unasat.musiQ_library.dao;
 
 import sr.unasat.musiQ_library.entity.Artist;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistDAO {
 
     private EntityManager entityManager;
+    private List<Artist> artists = new ArrayList<>();
 
     public ArtistDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -18,13 +21,20 @@ public class ArtistDAO {
         entityManager.getTransaction().begin();
         String jpql = "select a from Artist a";
         TypedQuery<Artist> query = entityManager.createQuery(jpql, Artist.class);
-        List<Artist> artists = query.getResultList();
+        artists = query.getResultList();
         entityManager.getTransaction().commit();
         return artists;
     }
 
     public Artist addArtist(Artist artist) {
         entityManager.getTransaction().begin();
+        for (int i = 0; i < artists.size(); i++) {
+            if (artists.get(i).getArtistName().toLowerCase().trim().equals(
+                    artist.getArtistName().toLowerCase().trim())) {
+                entityManager.getTransaction().rollback();
+                throw new EntityExistsException();
+            }
+        }
         entityManager.persist(artist);
         entityManager.getTransaction().commit();
         return artist;
