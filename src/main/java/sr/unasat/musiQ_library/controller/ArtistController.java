@@ -1,11 +1,15 @@
 package sr.unasat.musiQ_library.controller;
 
+import org.modelmapper.ModelMapper;
 import sr.unasat.musiQ_library.config.JPAConfiguration;
+import sr.unasat.musiQ_library.dto.ArtistDTO;
 import sr.unasat.musiQ_library.entity.Artist;
 import sr.unasat.musiQ_library.service.ArtistService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("artist")
@@ -13,36 +17,67 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ArtistController {
     private ArtistService artistService = new ArtistService(JPAConfiguration.getEntityManager());
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Path("/list")
     @GET
-    public List<Artist> findAll() {
-        return artistService.findAll();
+    public Response findAll() {
+        List<ArtistDTO> artistDTOS = new ArrayList<>();
+        ArtistDTO artistDTO;
+        List<Artist> artists = artistService.findAll();
+        for (Artist a : artists) {
+            artistDTO = modelMapper.map(a, ArtistDTO.class);
+            artistDTOS.add(artistDTO);
+        }
+        return Response.ok(artistDTOS).build();
     }
 
     @Path("/add")
     @POST
-    public Artist add(Artist artist) {
-        return artistService.add(artist);
+    public Response add(ArtistDTO artistDTO) {
+        try {
+            Artist artist = modelMapper.map(artistDTO, Artist.class);
+            artistService.add(artist);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        return Response.ok().build();
     }
 
     @Path("/{artistId}")
     @PUT
-    public Artist update(@PathParam("artistId") Long id, Artist artist) {
-        artist.setId(id);
-        return artistService.update(artist);
+    public Response update(@PathParam("artistId") Long id, ArtistDTO artistDTO) {
+        try {
+            artistDTO.setId(id);
+            Artist artist = modelMapper.map(artistDTO, Artist.class);
+            artistService.update(artist);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        return Response.ok().build();
     }
 
     @Path("/{artistId}")
     @DELETE
-    public void remove(@PathParam("artistId") Long id) {
-        artistService.delete(id);
+    public Response remove(@PathParam("artistId") Long id) {
+        try {
+            artistService.delete(id);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        return Response.ok().build();
     }
 
     @Path("/{artistId}")
     @GET
-    public Artist getSong(@PathParam("artistId") Long id) {
-        return artistService.getArtist(id);
+    public Response getArtist(@PathParam("artistId") Long id) {
+        ArtistDTO artistDTO;
+        try {
+            artistDTO = modelMapper.map(artistService.getArtist(id), ArtistDTO.class);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        return Response.ok(artistDTO).build();
     }
 
 }
