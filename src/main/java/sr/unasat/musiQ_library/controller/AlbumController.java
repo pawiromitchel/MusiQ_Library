@@ -96,13 +96,18 @@ public class AlbumController {
 
     @Path("/add/{albumId}/songs")
     @POST
-    public void addSongsToAlbum(@PathParam("albumId") Long albumId, @Valid List<SongDTO> songDTOs) {
+    public Response addSongsToAlbum(@PathParam("albumId") Long albumId, @Valid List<SongDTO> songDTOs) {
         Album album = albumService.getAlbum(albumId);
         List<Song> albumSongs = album.getSongList();
-        for (SongDTO s : songDTOs) {
-            Song song = modelMapper.map(s, Song.class);
-            albumSongs.add(song);
+        try {
+            for (SongDTO s : songDTOs) {
+                Song song = modelMapper.map(s, Song.class);
+                albumSongs.add(song);
+            }
+            albumService.addSongsToAlbum(album, albumSongs);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        albumService.addSongsToAlbum(album, albumSongs);
+        return Response.ok().build();
     }
 }
