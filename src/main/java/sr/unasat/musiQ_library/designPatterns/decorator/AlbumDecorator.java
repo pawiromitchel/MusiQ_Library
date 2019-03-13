@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AlbumDecorator implements DecoratorBase {
 
-    private List<SongDTO> songList;
+    private List<SongDTO> songList = new ArrayList<>();
 
     @Override
     public void addSong(SongDTO song) {
@@ -17,7 +17,13 @@ public class AlbumDecorator implements DecoratorBase {
 
     @Override
     public List<SongDTO> getSongList() {
-        return songList;
+        List<SongDTO> dtoList = new ArrayList<>();
+        SongDTO songDTO = new SongDTO();
+        for (int i = 0; i < songList.size(); i++) {
+            songDTO.setTitle(songList.get(i).getTitle());
+            dtoList.add(songDTO);
+        }
+        return dtoList;
     }
 
     @Override

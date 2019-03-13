@@ -1,20 +1,23 @@
 package sr.unasat.musiQ_library.dto;
 
 
-import sr.unasat.musiQ_library.entity.Album;
 import sr.unasat.musiQ_library.entity.ArtistTypeCode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistDTO {
 
     private Long id;
     private String artistName;
-    private List<Album> albumList;
+    private List<AlbumDTO> albumList;
     private ArtistTypeCode artistType;
     private boolean isFollowed;
 
-    public ArtistDTO(Long id, String artistName, List<Album> albumList,
+    public ArtistDTO() {
+    }
+
+    public ArtistDTO(Long id, String artistName, List<AlbumDTO> albumList,
                      ArtistTypeCode artistType, boolean isFollowed) {
         this.id = id;
         this.artistName = artistName;
@@ -46,11 +49,20 @@ public class ArtistDTO {
         this.artistName = artistName;
     }
 
-    public List<Album> getAlbumList() {
-        return albumList;
+    public List<AlbumDTO> getAlbumList() {
+        List<AlbumDTO> dtoList = new ArrayList<>();
+        for (AlbumDTO albumDTO : albumList) {
+            dtoList.add(new AlbumDTO(albumDTO.getAlbumTitle(), albumDTO.getReleaseYear()));
+        }
+//        for (int i = 0; i < albumList.size(); i++){
+//            albumDTO.setAlbumTitle(albumList.get(i).getAlbumTitle());
+//            albumDTO.setReleaseYear(albumList.get(i).getReleaseYear());
+//            dtoList.add(albumDTO);
+//        }
+        return dtoList;
     }
 
-    public void setAlbumList(List<Album> albumList) {
+    public void setAlbumList(List<AlbumDTO> albumList) {
         this.albumList = albumList;
     }
 

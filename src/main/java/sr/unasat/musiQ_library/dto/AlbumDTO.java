@@ -24,6 +24,11 @@ public class AlbumDTO extends AlbumDecorator {
         this.releaseYear = releaseYear;
     }
 
+    public AlbumDTO(String albumTitle, int releaseYear) {
+        this.albumTitle = albumTitle;
+        this.releaseYear = releaseYear;
+    }
+
     public Long getId() {
         return id;
     }

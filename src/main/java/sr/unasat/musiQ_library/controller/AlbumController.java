@@ -25,14 +25,14 @@ public class AlbumController {
     @Path("/list")
     @GET
     public Response findAll() {
-        List<AlbumDTO> albumDTOS = new ArrayList<>();
+        List<AlbumDTO> albumAlbumDTOS = new ArrayList<>();
         AlbumDTO albumDTO;
         List<Album> albums = albumService.findAll();
         for (Album album : albums) {
             albumDTO = modelMapper.map(album, AlbumDTO.class);
-            albumDTOS.add(albumDTO);
+            albumAlbumDTOS.add(albumDTO);
         }
-        return Response.ok(albumDTOS).build();
+        return Response.ok(albumAlbumDTOS).build();
     }
 
     @Path("/add")
