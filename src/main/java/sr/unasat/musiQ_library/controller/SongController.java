@@ -38,6 +38,7 @@ public class SongController {
     public Response add(@Valid SongDTO songDTO) {
         try {
             Song song = modelMapper.map(songDTO, Song.class);
+//            song.setId(null);
             songService.add(song);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -74,7 +75,8 @@ public class SongController {
     public Response getSong(@PathParam("songId") Long id) {
         SongDTO songDTO;
         try {
-            songDTO = modelMapper.map(songService.getSong(id), SongDTO.class);
+            Song song = songService.getSong(id);
+            songDTO = modelMapper.map(song, SongDTO.class);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }

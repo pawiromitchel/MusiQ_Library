@@ -2,16 +2,16 @@ package sr.unasat.musiQ_library.dao;
 
 import sr.unasat.musiQ_library.entity.Song;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SongDAO {
 
     private EntityManager entityManager;
-    private List<Song> songList;
+    private List<Song> songList = new ArrayList<>();
 
     public SongDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -29,16 +29,14 @@ public class SongDAO {
 
     public Song addSong(Song song) {
         entityManager.getTransaction().begin();
-        List<Song> list = new ArrayList<>();
         for (int i = 0; i < songList.size(); i++) {
-            if (songList.get(i).getTitle().equals(song.getTitle())) {
-                continue;
+            if (songList.get(i).getTitle().toLowerCase().trim().equals(song.getTitle().toLowerCase().trim())) {
+                entityManager.getTransaction().rollback();
+                throw new EntityExistsException();
             }
-            list = songList.stream().filter(s -> songList.contains(!s.getTitle().equals(song.getTitle())))
-                    .collect(Collectors.toList());
-            entityManager.persist(song);
-            entityManager.getTransaction().commit();
         }
+        entityManager.persist(song);
+        entityManager.getTransaction().commit();
         return song;
     }
 

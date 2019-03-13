@@ -6,7 +6,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 public class SongDTO {
-    private long id;
+    private Long id;
     @NotNull
     private String title;
     @Max(4)
@@ -14,7 +14,21 @@ public class SongDTO {
     private Album album;
     private boolean isFavorite;
 
+    public SongDTO() {
+    }
+
     public SongDTO(String title, int releaseYear, Album album, boolean isFavorite) {
+        this.title = title;
+        this.releaseYear = releaseYear;
+        this.album = album;
+        this.isFavorite = isFavorite;
+    }
+
+    public SongDTO(String title) {
+        this.title = title;
+    }
+
+    public SongDTO(Long id, String title, int releaseYear, Album album, boolean isFavorite) {
         this.id = id;
         this.title = title;
         this.releaseYear = releaseYear;
@@ -22,19 +36,11 @@ public class SongDTO {
         this.isFavorite = isFavorite;
     }
 
-    public SongDTO(String title, int releaseYear) {
-        this.title = title;
-        this.releaseYear = releaseYear;
-    }
-
-    public SongDTO() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

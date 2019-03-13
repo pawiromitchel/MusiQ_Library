@@ -17,7 +17,7 @@ public class Song {
     @Column(name = "release_year")
     private int releaseYear;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "album_id")
     private Album album;
 
