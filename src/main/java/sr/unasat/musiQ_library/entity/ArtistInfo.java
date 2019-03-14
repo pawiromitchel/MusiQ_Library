@@ -15,7 +15,7 @@ public class ArtistInfo {
     @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;
 
-    @Column(name = "artist_info", length = 1500)
+    @Column(name = "info", length = 1500)
     private String info;
 
     public ArtistInfo() {

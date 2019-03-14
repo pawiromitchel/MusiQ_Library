@@ -10,18 +10,15 @@ import java.util.List;
 public class PlaylistService {
 
     private PlaylistDAO playlistDAO;
-    private static List<Playlist> playlists;
+    private List<Playlist> playlists;
 
     public PlaylistService(EntityManager entityManager) {
         playlistDAO = new PlaylistDAO(entityManager);
-        findAll();
+        playlists = findAll();
     }
 
     public List<Playlist> findAll() {
-        if (playlists != null) {
-            return playlists;
-        }
-        return playlists = playlistDAO.findAllPlaylist();
+        return playlistDAO.findAllPlaylist();
     }
 
     public Playlist add(Playlist playlist) {

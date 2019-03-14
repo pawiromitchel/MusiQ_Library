@@ -10,7 +10,7 @@ public class ArtistDTO {
 
     private Long id;
     private String artistName;
-    private List<AlbumDTO> album;
+    private List<AlbumDTO> album = new ArrayList<>();
     private ArtistTypeCode artistType;
     private boolean isFollowed;
     private ArtistInfoDTO artistInfo;

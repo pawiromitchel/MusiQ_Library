@@ -13,17 +13,17 @@ public class AlbumService {
     private AlbumDAO albumDAO;
     private ArtistService artistService;
     private SongService songService;
-    private static List<Album> albums;
+    private List<Album> albums;
 
     public AlbumService(EntityManager entityManager) {
         albumDAO = new AlbumDAO(entityManager);
         artistService = new ArtistService(entityManager);
         songService = new SongService(entityManager);
-        findAll();
+        albums = findAll();
     }
 
     public List<Album> findAll() {
-        return albums = albumDAO.findAllAlbums();
+        return albumDAO.findAllAlbums();
     }
 
     public Album add(Album album) {

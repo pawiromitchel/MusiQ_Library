@@ -10,22 +10,21 @@ import java.util.List;
 public class ArtistService {
 
     private ArtistDAO artistDAO;
-    private static List<Artist> artists;
+    private List<Artist> artists;
 
     public ArtistService(EntityManager entityManager) {
         artistDAO = new ArtistDAO(entityManager);
-        findAll();
+        artists = findAll();
     }
 
     public List<Artist> findAll() {
-        if (artists != null) {
-            return artists;
-        }
-        return artists = artistDAO.findAllArtists();
+        return artistDAO.findAllArtists();
     }
 
     public Artist add(Artist artist) {
-        artist.getArtistInfo().setArtist(artist);
+        if (artist.getArtistInfo() != null) {
+            artist.getArtistInfo().setArtist(artist);
+        }
         artists.add(artistDAO.addArtist(artist));
         return artist;
     }

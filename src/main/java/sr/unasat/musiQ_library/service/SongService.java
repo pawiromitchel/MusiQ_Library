@@ -10,15 +10,15 @@ import java.util.List;
 public class SongService {
 
     private SongDAO songDAO;
-    private static List<Song> songList;
+    private List<Song> songList;
 
     public SongService(EntityManager entityManager) {
         songDAO = new SongDAO(entityManager);
-        findAll();
+        songList = findAll();
     }
 
     public List<Song> findAll() {
-        return songList = songDAO.findAllSongs();
+        return songDAO.findAllSongs();
     }
 
     public Song add(Song song) {

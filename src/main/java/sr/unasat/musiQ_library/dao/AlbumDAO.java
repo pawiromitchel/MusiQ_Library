@@ -6,16 +6,16 @@ import sr.unasat.musiQ_library.entity.Song;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumDAO {
 
     private EntityManager entityManager;
-    private List<Album> albums = new ArrayList<>();
+    private List<Album> albums;
 
     public AlbumDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
+        albums = findAllAlbums();
     }
 
     public List<Album> findAllAlbums() {

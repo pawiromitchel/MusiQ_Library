@@ -13,6 +13,7 @@ public class ArtistInfoDAO {
 
     public ArtistInfoDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
+        artistInfoList = findAllInfo();
     }
 
     public List<ArtistInfo> findAllInfo() {
