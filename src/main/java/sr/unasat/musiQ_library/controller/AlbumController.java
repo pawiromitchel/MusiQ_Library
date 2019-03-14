@@ -88,8 +88,8 @@ public class AlbumController {
     public List<String> getSongsFromAlbum(@PathParam("albumId") Long albumId) {
         AlbumDTO albumDTO = modelMapper.map(albumService.getAlbum(albumId), AlbumDTO.class);
         List<String> titles = new ArrayList<>();
-        for (SongDTO song : albumDTO.getSongList()) {
-            titles.add(song.getTitle());
+        for (String song : albumDTO.getSongList()) {
+            titles.add(song);
         }
         return titles;
     }

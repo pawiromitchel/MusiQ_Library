@@ -16,12 +16,10 @@ public class AlbumDecorator implements DecoratorBase {
     }
 
     @Override
-    public List<SongDTO> getSongList() {
-        List<SongDTO> dtoList = new ArrayList<>();
-        SongDTO songDTO = new SongDTO();
+    public List<String> getSongList() {
+        List<String> dtoList = new ArrayList<>();
         for (int i = 0; i < songList.size(); i++) {
-            songDTO.setTitle(songList.get(i).getTitle());
-            dtoList.add(songDTO);
+            dtoList.add(songList.get(i).getTitle());
         }
         return dtoList;
     }

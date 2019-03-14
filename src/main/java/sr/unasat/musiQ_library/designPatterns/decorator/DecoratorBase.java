@@ -8,7 +8,7 @@ public interface DecoratorBase {
 
     void addSong(SongDTO song);
 
-    List<SongDTO> getSongList();
+    List<String> getSongList();
 
     void setSongList(List<SongDTO> songList);
 

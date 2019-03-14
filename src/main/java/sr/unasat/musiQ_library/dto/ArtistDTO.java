@@ -10,18 +10,19 @@ public class ArtistDTO {
 
     private Long id;
     private String artistName;
-    private List<AlbumDTO> albumList;
+    private List<AlbumDTO> album;
     private ArtistTypeCode artistType;
     private boolean isFollowed;
+    private ArtistInfoDTO artistInfo;
 
     public ArtistDTO() {
     }
 
-    public ArtistDTO(Long id, String artistName, List<AlbumDTO> albumList,
+    public ArtistDTO(Long id, String artistName, List<AlbumDTO> album,
                      ArtistTypeCode artistType, boolean isFollowed) {
         this.id = id;
         this.artistName = artistName;
-        this.albumList = albumList;
+        this.album = album;
         this.artistType = artistType;
         this.isFollowed = isFollowed;
     }
@@ -49,21 +50,21 @@ public class ArtistDTO {
         this.artistName = artistName;
     }
 
-    public List<AlbumDTO> getAlbumList() {
-        List<AlbumDTO> dtoList = new ArrayList<>();
-        for (AlbumDTO albumDTO : albumList) {
-            dtoList.add(new AlbumDTO(albumDTO.getAlbumTitle(), albumDTO.getReleaseYear()));
+    public List<String> getAlbum() {
+        List<String> dtoList = new ArrayList<>();
+        for (AlbumDTO albumDTO : album) {
+            dtoList.add(albumDTO.getAlbumTitle());
         }
-//        for (int i = 0; i < albumList.size(); i++){
-//            albumDTO.setAlbumTitle(albumList.get(i).getAlbumTitle());
-//            albumDTO.setReleaseYear(albumList.get(i).getReleaseYear());
+//        for (int i = 0; i < album.size(); i++){
+//            albumDTO.setAlbumTitle(album.get(i).getAlbumTitle());
+//            albumDTO.setReleaseYear(album.get(i).getReleaseYear());
 //            dtoList.add(albumDTO);
 //        }
         return dtoList;
     }
 
-    public void setAlbumList(List<AlbumDTO> albumList) {
-        this.albumList = albumList;
+    public void setAlbum(List<AlbumDTO> album) {
+        this.album = album;
     }
 
     public ArtistTypeCode getArtistType() {
@@ -80,5 +81,13 @@ public class ArtistDTO {
 
     public void setFollowed(boolean followed) {
         isFollowed = followed;
+    }
+
+    public String getArtistInfo() {
+        return artistInfo.getInfo();
+    }
+
+    public void setArtistInfo(ArtistInfoDTO artistInfo) {
+        this.artistInfo = artistInfo;
     }
 }

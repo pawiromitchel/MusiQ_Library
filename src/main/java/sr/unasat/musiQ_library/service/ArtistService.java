@@ -25,6 +25,7 @@ public class ArtistService {
     }
 
     public Artist add(Artist artist) {
+        artist.getArtistInfo().setArtist(artist);
         artists.add(artistDAO.addArtist(artist));
         return artist;
     }

@@ -29,6 +29,9 @@ public class Artist {
     @DefaultValue(value = "false")
     private boolean isFollowed;
 
+    @OneToOne(mappedBy = "artist", cascade = CascadeType.PERSIST)
+    private ArtistInfo artistInfo;
+
     public Artist() {
     }
 
@@ -76,5 +79,13 @@ public class Artist {
 
     public void setFollowed(boolean followed) {
         isFollowed = followed;
+    }
+
+    public ArtistInfo getArtistInfo() {
+        return artistInfo;
+    }
+
+    public void setArtistInfo(ArtistInfo artistInfo) {
+        this.artistInfo = artistInfo;
     }
 }

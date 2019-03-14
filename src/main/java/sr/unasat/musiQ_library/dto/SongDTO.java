@@ -28,14 +28,6 @@ public class SongDTO {
         this.title = title;
     }
 
-    public SongDTO(Long id, String title, int releaseYear, Album album, boolean isFavorite) {
-        this.id = id;
-        this.title = title;
-        this.releaseYear = releaseYear;
-        this.album = album;
-        this.isFavorite = isFavorite;
-    }
-
     public Long getId() {
         return id;
     }
@@ -60,8 +52,12 @@ public class SongDTO {
         this.releaseYear = releaseYear;
     }
 
-    public Album getAlbum() {
-        return album;
+    public String getArtist() {
+        return album.getArtist().getArtistName();
+    }
+
+    public String getAlbum() {
+        return album.getAlbumTitle();
     }
 
     public void setAlbum(Album album) {

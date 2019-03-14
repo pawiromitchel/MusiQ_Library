@@ -1,6 +1,7 @@
 package sr.unasat.musiQ_library.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -13,9 +14,8 @@ public class Playlist {
     @Column(name = "playlist_name", nullable = false, unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "song_id", nullable = false)
-    private Song song;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Song> songs;
 
     public Playlist() {
     }
@@ -36,11 +36,11 @@ public class Playlist {
         this.name = name;
     }
 
-    public Song getSong() {
-        return song;
+    public List<Song> getSongs() {
+        return songs;
     }
 
-    public void setSong(Song song) {
-        this.song = song;
+    public void setSongs(List<Song> song) {
+        this.songs = song;
     }
 }
