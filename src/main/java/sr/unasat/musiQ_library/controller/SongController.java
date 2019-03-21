@@ -91,9 +91,25 @@ public class SongController {
         List<SongDTO> randomSongs = new ArrayList<>();
         Random random = new Random();
         SongDTO songDTO;
+        Song s;
+        OUTER:
         for (int i = 0; i < 5; i++) {
-            songDTO = modelMapper.map(songs.get(random.nextInt(songs.size())), SongDTO.class);
-            randomSongs.add(songDTO);
+            s = songs.get(random.nextInt(songs.size()));
+            songDTO = modelMapper.map(s, SongDTO.class);
+            if (randomSongs.size() == 0) {
+                randomSongs.add(songDTO);
+            } else {
+                for (int j = 0; j < randomSongs.size(); j++) {
+                    if (randomSongs.get(j).getTitle().toLowerCase().trim()
+                            .equals(s.getTitle().toLowerCase().trim())) {
+                        s = songs.get(random.nextInt(songs.size()));
+                        songDTO = modelMapper.map(s, SongDTO.class);
+                        randomSongs.add(j, songDTO);
+                        continue OUTER;
+                    }
+                }
+                randomSongs.add(songDTO);
+            }
         }
         return Response.ok(randomSongs).build();
     }
