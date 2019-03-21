@@ -7,59 +7,108 @@
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet">
+    <script src="extra/w3data.js"></script>
 </head>
 
-<body>
+<body background="images/music-bg.jpg" class="img-fluid" style="background-size: 100%">
 <div class="container-fluid">
     <div class="row">
+        <!--Menu-->
         <div class="col-2">
-            <div class="nav-column" style="font-size: 20px;">
-                <div>
-                    <a href="./index.html" class="text-dark">
-                        <i class="fa fa-home"> </i> Home
+            <div class="nav-column" id="nav-column" style="font-size: 20px;">
+                <div id="mainMenu">
+                    <a class="text-dark" href="index.html">
+                        <i class="fa fa-home"></i> Home
                     </a>
                 </div>
-                <div>
-                    <a href="./menus/songComponent/songs.html" class="text-dark" onclick="getAllSongs()">
-                        <i class="fas fa-music"> </i> Songs
+                <div id="songMenu">
+                    <a class="text-dark" href="songs.html" onclick="loadAllSongs()">
+                        <i class="fas fa-music"></i> Songs
                     </a>
                 </div>
-                <div>
-                    <a href="./artist.html" class="text-dark">
-                        <i class="fas fa-users"> </i> Artists
+                <div id="artistMenu">
+                    <a class="text-dark" href="artist.html" onclick="loadArtist()">
+                        <i class="fas fa-users"></i> Artists
                     </a>
                 </div>
-                <div>
-                    <a href="./albums.html" class="text-dark">
-                        <i class="fas fa-compact-disc"> </i> Albums
+                <div id="albumMenu">
+                    <a class="text-dark" href="albums.html" onclick="loadAlbums()">
+                        <i class="fas fa-compact-disc"></i> Albums
                     </a>
                 </div>
             </div>
         </div>
+
+        <!--Content-->
         <div class="col-10">
             <h1>Welcome to the MusiQ Library</h1>
             <h3>Where we (almost) have every song</h3>
             <h6>If our developers weren't so lazy</h6>
-            <div class="col-3" style="margin-left: 70%; margin-right: 5px">
-                <h4>Popular Songs</h4>
-                <div class="d-flex flex-column bd-highlight mb-3">
-                    <div class="d-flex align-items-start" id="songData">
-                    </div>
+            <div class="row"></div>
+            <div class="row" style="margin-top: 25px">
+                <div class="col-5">
+                    <form>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label" for="songTitle"><b>Song</b></label>
+                            <div class="col-8">
+                                <input class="form-control" id="songTitle" placeholder="Title" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label" for="artist"><b>Artist</b></label>
+                            <div class="col-8">
+                                <input class="form-control" id="artist" placeholder="Artist" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label" for="artistType"><b>Artist Type</b></label>
+                            <div class="col-8">
+                                <select class="custom-select" id="artistType">
+                                    <option selected>Choose...</option>
+                                    <option value="SOLO">Solo</option>
+                                    <option value="DUO">Duo</option>
+                                    <option value="BAND">Band</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label" for="album"><b>Album</b></label>
+                            <div class="col-8">
+                                <input class="form-control" id="album" placeholder="Album" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-5">
+                                <button class="btn btn-primary" type="submit">Add to Library</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="col-6">
-                <div class="d-flex flex-column bd-highlight mb-3">
-                    <div class="d-flex align-items-start" id="artistData">
-                    </div>
+                <div class="table-responsive-md">
+                    <table class="table table-light table-sm table-hover table-bordered"
+                           style="background-color: rgba(225, 225, 225, 0.8); margin-left: 75%;">
+                        <thead>
+                        <tr>
+                            <th>Songs you might like</th>
+                        </tr>
+                        </thead>
+                        <tbody id="songData">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+<script src="app.js">
+</script>
+<script>
+    includeHTML();
+</script>
 
-<script src="app.js"></script>
 </body>
 
 </html>

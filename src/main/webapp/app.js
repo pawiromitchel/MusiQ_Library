@@ -1,49 +1,52 @@
-getAllData();
+loadSongsMenu();
+var songDataList = [];
+var responseText = [];
 
-// function loader() {
-//     var elem = document.getElementById("loading");
-//     var width = 1;
-//     var id = setInterval(frame, 15);
-//     function frame() {
-//         if (width === 100) {
-//             clearInterval(id);
-//             document.getElementById("loading").hidden;
-//         } else {
-//             width++;
-//             elem.style.width = width + '%';
-//         }
-//     }
-// }
+// const artist = document.getElementById("artist");
+// artist.style.display = 'none';
+//
+// const album = document.getElementById("album");
+// album.style.display = 'none';
+//
+// const artistType = document.getElementById("artistType");
+// artistType.style.display = 'none';
 
-function getAllData() {
-    const BASE_URL = "http://localhost:8080/musiQ_library/api";
-    loadSongsMenu(BASE_URL);
-    // loadArtist(BASE_URL);
+function loadSongsMenu() {
+    apiCall('song/random');
+    if (JSON.parse(responseText)) {
+        songDataList = JSON.parse(responseText);
+        const songList = document.getElementById('songData');
+        songDataList.forEach(song => {
+            const data = `<tr class="table-light" style="background-color: rgba(225, 225, 225, 0.8)">
+            <a href="#" style="color:black" onclick="getSelectedSong(${song.id})">
+                    <p>Title: ${song.title}<br>
+                    Artist: ${song.artist} <br>
+                    Album:  ${song.album} <br></p>
+                    </a></tr>
+            `;
+            songList.innerHTML += data;
+        })
+    }
 }
 
-function loadSongsMenu(url) {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let songDataList = JSON.parse(this.responseText);
-            let song = '<div class="row"> ';
-
-            // for (let index = 0; index < songDataList.length; index++) {
-            for (let index = 0; index < 5; index++) {
-                song +=
-                    '<a href="#" onclick="getSelectedSong(' + songDataList[index].id + ')">' +
-                    '<p>Title: ' + songDataList[index].title + '<br>' +
-                    'Artist: ' + songDataList[index].artist + '<br>' +
-                    'Album: ' + songDataList[index].album + '<br></p>' +
-                    '</a>'
-                ;
-            }
-            song += '</div>';
-            document.getElementById("songData").innerHTML = song;
-        }
-    };
-    xhttp.open("GET", url + "/song/list");
-    xhttp.send();
+function loadAllSongs() {
+    let responseText = apiCall('song/list');
+    console.log(responseText);
+    if (responseText) {
+        songDataList = responseText;
+        const songList = document.getElementById('songData');
+        songDataList.forEach(song => {
+            const data = `
+            <div class="row" >
+            <a href="#" onclick="getSelectedSong(${song.id})">
+                    <p>Title: ${song.title}<br>
+                    Artist: ${song.artist} <br>
+                    Album:  ${song.album} <br></p>
+                    </a></div>
+            `;
+            songList.innerHTML += data;
+        })
+    }
 }
 
 function getSelectedSong(id) {
@@ -60,16 +63,18 @@ function getSelectedSong(id) {
 
 function apiCall(entity) {
     let url = "http://localhost:8080/musiQ_library/api/";
-    if (entity.toLowerCase() === 'song') {
-        return url + entity + '/';
-    } else if (entity.toLowerCase() === 'artist') {
-        return url + entity + '/';
-    } else if (entity.toLowerCase() === 'album') {
-        return url + entity + '/';
-    }
+    let newUrl = url + entity.toLowerCase();
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            responseText = this.responseText;
+        }
+    };
+    xhttp.open('GET', newUrl, false);
+    xhttp.send();
 }
 
-function loadArtist(url) {
+function loadArtist() {
     let xhttp = new XMLHttpRequest();
     if (this.readyState == 4 && this.status == 200) {
         let artistList = JSON.parse(this.responseText);
@@ -85,15 +90,15 @@ function loadArtist(url) {
         artist += '</div>';
         document.getElementById("artistData").innerHTML = artist;
     }
-    xhttp.open("GET", url + "/artist/list");
+    xhttp.open("GET", apiCall("artist") + "list");
     xhttp.send();
 }
 
-function loadAlbums(url) {
+function loadAlbums() {
     let xhttp = new XMLHttpRequest();
     if (this.readyState == 4 && this.status == 200) {
         let albumList = JSON.parse(this.responseText);
     }
-    xhttp.open("GET", url + "/album/list");
+    xhttp.open("GET", apiCall("album") + "list");
     xhttp.send();
 }
