@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Path("song")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -83,4 +84,17 @@ public class SongController {
         return Response.ok(songDTO).build();
     }
 
+    @Path("/random")
+    @GET
+    public Response getRandomSongs() {
+        List<Song> songs = songService.findAll();
+        List<SongDTO> randomSongs = new ArrayList<>();
+        Random random = new Random();
+        SongDTO songDTO;
+        for (int i = 0; i < 5; i++) {
+            songDTO = modelMapper.map(songs.get(random.nextInt(songs.size())), SongDTO.class);
+            randomSongs.add(songDTO);
+        }
+        return Response.ok(randomSongs).build();
+    }
 }
