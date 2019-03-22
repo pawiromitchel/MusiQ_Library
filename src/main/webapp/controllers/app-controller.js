@@ -2,14 +2,31 @@ loadSongsMenu();
 var songDataList = [];
 var responseText = [];
 
-// const artist = document.getElementById("artist");
-// artist.style.display = 'none';
-//
-// const album = document.getElementById("album");
-// album.style.display = 'none';
-//
-// const artistType = document.getElementById("artistType");
-// artistType.style.display = 'none';
+document.getElementById('actArtist').addEventListener('click', addArtistFields);
+
+document.getElementById('actAlbum').addEventListener('click', function () {
+    const album = `
+    <input class="form-control" id="album" placeholder="Album" type="text">
+    `;
+    document.getElementById('albumField').innerHTML += album;
+    document.getElementById('actAlbum').style.display = 'none';
+});
+
+function addArtistFields() {
+    const artistType = `
+        <select class="custom-select">
+            <option selected>Choose...</option>
+            <option value="SOLO">Solo</option>
+            <option value="DUO">Duo</option>
+            <option value="BAND">Band</option>
+        </select>`;
+    document.getElementById('artistType').innerHTML += artistType;
+
+    const artist = `
+    <input class="form-control" id="artist" placeholder="Artist" type="text">`;
+    document.getElementById('artistField').innerHTML += artist;
+    document.getElementById('actArtist').style.display = 'none';
+}
 
 function loadSongsMenu() {
     apiCall('song/random');
@@ -18,47 +35,16 @@ function loadSongsMenu() {
         const songList = document.getElementById('songData');
         songDataList.forEach(song => {
             const data = `<tr class="table-light" style="background-color: rgba(225, 225, 225, 0.8)">
-            <a href="#" style="color:black" onclick="getSelectedSong(${song.id})">
+            <a href="./song-detail.html?id=${song.id}" id="selectedSong" style="color:black">
                     <p>Title: ${song.title}<br>
                     Artist: ${song.artist} <br>
                     Album:  ${song.album} <br></p>
                     </a></tr>
             `;
+            window.sessionStorage.setItem('id', JSON.stringify(song));
             songList.innerHTML += data;
         })
     }
-}
-
-function loadAllSongs() {
-    let responseText = apiCall('song/list');
-    console.log(responseText);
-    if (responseText) {
-        songDataList = responseText;
-        const songList = document.getElementById('songData');
-        songDataList.forEach(song => {
-            const data = `
-            <div class="row" >
-            <a href="#" onclick="getSelectedSong(${song.id})">
-                    <p>Title: ${song.title}<br>
-                    Artist: ${song.artist} <br>
-                    Album:  ${song.album} <br></p>
-                    </a></div>
-            `;
-            songList.innerHTML += data;
-        })
-    }
-}
-
-function getSelectedSong(id) {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            let selectedSong = JSON.parse(this.responseText);
-            console.log(selectedSong);
-        }
-    };
-    xhttp.open("GET", apiCall('song') + id);
-    xhttp.send();
 }
 
 function apiCall(entity) {
@@ -74,7 +60,7 @@ function apiCall(entity) {
     xhttp.send();
 }
 
-function loadArtist() {
+function loadArtist() { //TODO
     let xhttp = new XMLHttpRequest();
     if (this.readyState == 4 && this.status == 200) {
         let artistList = JSON.parse(this.responseText);
@@ -94,7 +80,7 @@ function loadArtist() {
     xhttp.send();
 }
 
-function loadAlbums() {
+function loadAlbums() { //TODO
     let xhttp = new XMLHttpRequest();
     if (this.readyState == 4 && this.status == 200) {
         let albumList = JSON.parse(this.responseText);
