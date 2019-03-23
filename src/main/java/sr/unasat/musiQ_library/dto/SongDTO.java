@@ -52,7 +52,7 @@ public class SongDTO {
         this.releaseYear = releaseYear;
     }
 
-    public String getArtistName() {
+    public String getArtist() {
         return albumTitle.getArtist().getArtistName();
     }
 

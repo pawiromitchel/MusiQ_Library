@@ -10,7 +10,7 @@ public class ArtistDTO {
 
     private Long id;
     private String artistName;
-    private List<AlbumDTO> albumTitle = new ArrayList<>();
+    private List<AlbumDTO> album = new ArrayList<>();
     private ArtistTypeCode artistType;
     private boolean isFollowed;
     private ArtistInfoDTO artistInfo;
@@ -18,11 +18,11 @@ public class ArtistDTO {
     public ArtistDTO() {
     }
 
-    public ArtistDTO(Long id, String artistName, List<AlbumDTO> albumTitle,
+    public ArtistDTO(Long id, String artistName, List<AlbumDTO> album,
                      ArtistTypeCode artistType, boolean isFollowed) {
         this.id = id;
         this.artistName = artistName;
-        this.albumTitle = albumTitle;
+        this.album = album;
         this.artistType = artistType;
         this.isFollowed = isFollowed;
     }
@@ -50,21 +50,21 @@ public class ArtistDTO {
         this.artistName = artistName;
     }
 
-    public List<String> getAlbumTitle() {
+    public List<String> getAlbum() {
         List<String> dtoList = new ArrayList<>();
-        for (AlbumDTO albumDTO : albumTitle) {
+        for (AlbumDTO albumDTO : album) {
             dtoList.add(albumDTO.getAlbumTitle());
         }
-//        for (int i = 0; i < albumTitle.size(); i++){
-//            albumDTO.setAlbumTitle(albumTitle.get(i).getAlbumTitle());
-//            albumDTO.setReleaseYear(albumTitle.get(i).getReleaseYear());
+//        for (int i = 0; i < album.size(); i++){
+//            albumDTO.setAlbum(album.get(i).getAlbum());
+//            albumDTO.setReleaseYear(album.get(i).getReleaseYear());
 //            dtoList.add(albumDTO);
 //        }
         return dtoList;
     }
 
-    public void setAlbumTitle(List<AlbumDTO> albumTitle) {
-        this.albumTitle = albumTitle;
+    public void setAlbum(List<AlbumDTO> album) {
+        this.album = album;
     }
 
     public ArtistTypeCode getArtistType() {

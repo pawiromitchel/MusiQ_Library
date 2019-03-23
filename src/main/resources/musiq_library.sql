@@ -20,11 +20,11 @@ CREATE SCHEMA IF NOT EXISTS `musiq_library` DEFAULT CHARACTER SET utf8mb4 COLLAT
 USE `musiq_library`;
 
 -- -----------------------------------------------------
--- Table `musiq_library`.`artistName`
+-- Table `musiq_library`.`artist`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `musiq_library`.`artistName`;
+DROP TABLE IF EXISTS `musiq_library`.`artist`;
 
-CREATE TABLE IF NOT EXISTS `musiq_library`.`artistName`
+CREATE TABLE IF NOT EXISTS `musiq_library`.`artist`
 (
   `id`          BIGINT(4)   NOT NULL AUTO_INCREMENT,
   `artist_name` VARCHAR(45) NOT NULL UNIQUE,
@@ -36,11 +36,11 @@ CREATE TABLE IF NOT EXISTS `musiq_library`.`artistName`
 
 
 -- -----------------------------------------------------
--- Table `musiq_library`.`albumTitle`
+-- Table `musiq_library`.`album`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `musiq_library`.`albumTitle`;
+DROP TABLE IF EXISTS `musiq_library`.`album`;
 
-CREATE TABLE IF NOT EXISTS `musiq_library`.`albumTitle`
+CREATE TABLE IF NOT EXISTS `musiq_library`.`album`
 (
   `id`           BIGINT(4)   NOT NULL AUTO_INCREMENT,
   `album_title`  VARCHAR(45) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `musiq_library`.`albumTitle`
   INDEX `artist_id_idx` (`artist_id` ASC) VISIBLE,
   CONSTRAINT `artist_id`
     FOREIGN KEY (`artist_id`)
-      REFERENCES `musiq_library`.`artistName` (`id`)
+      REFERENCES `musiq_library`.`artist` (`id`)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 )
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `musiq_library`.`song`
   INDEX `album_id_idx` (`album_id` ASC) VISIBLE,
   CONSTRAINT `album_id`
     FOREIGN KEY (`album_id`)
-      REFERENCES `musiq_library`.`albumTitle` (`id`)
+      REFERENCES `musiq_library`.`album` (`id`)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 )
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `musiq_library`.`artist_info`
   INDEX `artist_id_idx` (`artist_id` ASC) VISIBLE,
   CONSTRAINT `artist_id_fk`
     FOREIGN KEY (`artist_id`)
-      REFERENCES `musiq_library`.`artistName` (`id`)
+      REFERENCES `musiq_library`.`artist` (`id`)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 )
@@ -126,41 +126,41 @@ SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `musiq_library`.`artistName`
+-- Data for table `musiq_library`.`artist`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `musiq_library`;
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Queen', 'BAND', 0);
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Bon Jovi', 'BAND', 0);
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Eminem', 'SOLO', 0);
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Michael Jackson', 'SOLO', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('\'N Sync', 'BAND', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('NWA', 'GROUP', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Linkin Park', 'BAND', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Marroon 5', 'BAND', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Bruno Mars', 'SOLO', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Daft Punk', 'DUO', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Alicia Keys', 'SOLO', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Jay-Z', 'SOLO', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Beyonce', 'SOLO', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Destiny\'s Child', 'GROUP', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('Boyz II Men', 'GROUP', '0');
-INSERT INTO `musiq_library`.`artistName` (`artist_name`, `artist_type`, `is_followed`)
+INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
 VALUES ('The Temptations', 'GROUP', '0');
 
 
@@ -168,41 +168,41 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `musiq_library`.`albumTitle`
+-- Data for table `musiq_library`.`album`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `musiq_library`;
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Bohemian Rhapsody', 1, 1975);
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Slippery When Wet', 2, 1986);
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('The Marshall Mathers LP', 3, 2000);
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Thriller', '4', '1982');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('No Strings Attached', '5', '2000');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Straight Outta Compton', '6', '1988');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Meteora', '7', '2003');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Songs About Jane', '8', '2003');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('24K Magic', '9', '2016');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Random Access Memories', '10', '2010');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Songs in a Minor', '11', '2001');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('The Blueprint 3', '12', '2009');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('I Am... Sasha Fierce', '13', '2008');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('The Writing\'s on the Wall', '14', '1999');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Boomerang Soundtrack', '15', '1992');
-INSERT INTO `musiq_library`.`albumTitle` (`album_title`, `artist_id`, `release_year`)
+INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('The Temptations Sing Smokey', '16', '1965');
 
 
@@ -270,7 +270,7 @@ VALUES ('4',
         'Michael Joseph Jackson (August 29, 1958 – June 25, 2009) was an American singer, songwriter, and dancer. Dubbed the \"King of Pop\", he is widely regarded as one of the most significant cultural figures of the 20th century and one of the greatest entertainers of all time. He was also known for his philanthropy, charitable fundraising, and lifestyle, residing in a private amusement park he called Neverland Ranch and often becoming the focus of tabloid scrutiny. Jackson\'s contributions to music, dance, and fashion, along with his publicized personal life, made him a global figure in popular culture for over four decades.');
 INSERT INTO `musiq_library`.`artist_info` (`artist_id`, info)
 VALUES ('5',
-        'NSYNC was an American boy band formed in Orlando, Florida, in 1995 and launched in Germany by BMG Ariola Munich. NSYNC consisted of Justin Timberlake, JC Chasez, Chris Kirkpatrick, Joey Fatone, and Lance Bass. After heavily publicized legal battles with their former manager Lou Pearlman and former record label Bertelsmann Music Group, the group\'s second albumTitle, No Strings Attached (2000), sold over one million copies in one day and 2.42 million copies in one week, which was a record for over fifteen years.');
+        'NSYNC was an American boy band formed in Orlando, Florida, in 1995 and launched in Germany by BMG Ariola Munich. NSYNC consisted of Justin Timberlake, JC Chasez, Chris Kirkpatrick, Joey Fatone, and Lance Bass. After heavily publicized legal battles with their former manager Lou Pearlman and former record label Bertelsmann Music Group, the group\'s second album, No Strings Attached (2000), sold over one million copies in one day and 2.42 million copies in one week, which was a record for over fifteen years.');
 INSERT INTO `musiq_library`.`artist_info` (`artist_id`, info)
 VALUES ('6',
         'N.W.A (an abbreviation for Niggaz Wit Attitudes) was an American hip hop group from Los Angeles, California. They were among the earliest and most significant popularizes and controversial figures of the gangsta rap subgenre, and are widely considered one of the greatest and most influential groups in the history of hip hop music.');
@@ -303,7 +303,7 @@ VALUES ('15',
         'Boyz II Men is an American R&B vocal group from Philadelphia, Pennsylvania, best known for emotional ballads and a cappella harmonies. They are currently a trio composed of baritone Nathan Morris alongside tenors Wanya Morris and Shawn Stockman. During the 1990s, Boyz II Men found fame on Motown Records as a quartet including bass Michael McCary, who left the group in 2003 due to health issues');
 INSERT INTO `musiq_library`.`artist_info` (`artist_id`, info)
 VALUES ('16',
-        'The Temptations is an American vocal group who released a series of successful singles and albumTitle with Motown Records during the 1960s and 1970s. The group’s work with producer Norman Whitfield, beginning with the Top 10 hit single "Cloud Nine" in October 1968, pioneered psychedelic soul, and was significant in the evolution of R&B and soul music.[1] The band members are known for their choreography, distinct harmonies, and dress style. Having sold tens of millions of albumTitle, the Temptations is among the most successful groups in popular music.');
+        'The Temptations is an American vocal group who released a series of successful singles and album with Motown Records during the 1960s and 1970s. The group’s work with producer Norman Whitfield, beginning with the Top 10 hit single "Cloud Nine" in October 1968, pioneered psychedelic soul, and was significant in the evolution of R&B and soul music.[1] The band members are known for their choreography, distinct harmonies, and dress style. Having sold tens of millions of album, the Temptations is among the most successful groups in popular music.');
 
 
 COMMIT;
