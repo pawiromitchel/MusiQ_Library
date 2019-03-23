@@ -9,3 +9,5 @@ Playlist component needs to be created
 Front end
 
 Artist info table (Nice to have)
+
+Form post method research

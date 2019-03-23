@@ -13,14 +13,14 @@ public class AlbumDTO extends AlbumDecorator {
     @Max(4)
     private int releaseYear;
     @NotNull
-    private Artist artist;
+    private Artist artistName;
 
     public AlbumDTO() {
     }
 
-    public AlbumDTO(String albumTitle, Artist artist, int releaseYear) {
+    public AlbumDTO(String albumTitle, Artist artistName, int releaseYear) {
         this.albumTitle = albumTitle;
-        this.artist = artist;
+        this.artistName = artistName;
         this.releaseYear = releaseYear;
     }
 
@@ -53,11 +53,11 @@ public class AlbumDTO extends AlbumDecorator {
         this.releaseYear = releaseYear;
     }
 
-    public String getArtist() {
-        return artist.getArtistName();
+    public String getArtistName() {
+        return artistName.getArtistName();
     }
 
-    public void setArtist(Artist artist) {
-        this.artist = artist;
+    public void setArtistName(Artist artistName) {
+        this.artistName = artistName;
     }
 }
