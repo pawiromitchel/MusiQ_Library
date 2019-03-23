@@ -9,7 +9,6 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet">
-    <script src="extra/w3data.js"></script>
 </head>
 
 <body background="images/music-bg.jpg" class="img-fluid" style="background-size: 100%">
@@ -29,7 +28,7 @@
                     </a>
                 </div>
                 <div id="artistMenu">
-                    <a class="text-dark" href="artist.html" onclick="loadArtist()">
+                    <a class="text-dark" href="artistName.html" onclick="loadArtist()">
                         <i class="fas fa-users"></i> Artists
                     </a>
                 </div>
@@ -49,11 +48,11 @@
             <div class="row"></div>
             <div class="row" style="margin-top: 25px">
                 <div class="col-5">
-                    <form>
+                    <form class="form" id="insertForm">
                         <div class="form-group row">
                             <label class="col-3 col-form-label"><b>Song</b></label>
                             <div class="col-8">
-                                <input class="form-control" id="songTitle" placeholder="Title" type="text">
+                                <input class="form-control" id="title" placeholder="Title" type="text">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -64,8 +63,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-3 col-form-label" for="artistType"><b>Artist Type</b></label>
-                            <div class="col-8" id="artistType"></div>
+                            <label class="col-3 col-form-label" for="type"><b>Artist Type</b></label>
+                            <div class="col-8" id="type"></div>
                         </div>
                         <div class="form-group row">
                             <label class="col-3 col-form-label"><b>Album</b></label>
@@ -76,7 +75,8 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-5">
-                                <button class="btn btn-primary" type="submit">Add to Library</button>
+                                <button class="btn btn-primary" type="submit" onclick="postData()">Add to Library
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -99,9 +99,6 @@
     </div>
 </div>
 <script src="controllers/app-controller.js">
-</script>
-<script>
-    includeHTML();
 </script>
 
 </body>

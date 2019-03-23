@@ -14,7 +14,7 @@ document.getElementById('actAlbum').addEventListener('click', function () {
 
 function addArtistFields() {
     const artistType = `
-        <select class="custom-select">
+        <select class="custom-select" id="artistType">
             <option selected>Choose...</option>
             <option value="SOLO">Solo</option>
             <option value="DUO">Duo</option>
@@ -23,13 +23,13 @@ function addArtistFields() {
     document.getElementById('artistType').innerHTML += artistType;
 
     const artist = `
-    <input class="form-control" id="artist" placeholder="Artist" type="text">`;
+    <input class="form-control" id="artistName" placeholder="Artist" type="text">`;
     document.getElementById('artistField').innerHTML += artist;
     document.getElementById('actArtist').style.display = 'none';
 }
 
 function loadSongsMenu() {
-    apiCall('song/random');
+    apiCall('GET', 'song/random', null);
     if (JSON.parse(responseText)) {
         songDataList = JSON.parse(responseText);
         const songList = document.getElementById('songData');
@@ -47,7 +47,7 @@ function loadSongsMenu() {
     }
 }
 
-function apiCall(entity) {
+function apiCall(method, entity, body) {
     let url = "http://localhost:8080/musiQ_library/api/";
     let newUrl = url + entity.toLowerCase();
     let xhttp = new XMLHttpRequest();
@@ -56,8 +56,15 @@ function apiCall(entity) {
             responseText = this.responseText;
         }
     };
-    xhttp.open('GET', newUrl, false);
-    xhttp.send();
+    if (method === 'GET') {
+        xhttp.open(method, newUrl, false);
+        xhttp.send();
+    } else if (method === 'POST') {
+        xhttp.open(method, newUrl);
+        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.send(JSON.stringify(body));
+
+    }
 }
 
 function loadArtist() { //TODO
@@ -87,4 +94,38 @@ function loadAlbums() { //TODO
     }
     xhttp.open("GET", apiCall("album") + "list");
     xhttp.send();
+}
+
+function postData() {
+
+    const form = {
+        songTitle: document.getElementById('title')
+        // artist: document.getElementById('artist'),
+        // artistType: document.getElementById('selectArtistType'),
+        // album: document.getElementById('album')
+    };
+
+    const request = new XMLHttpRequest();
+    request.onload = () => {
+        console.log(request.responseText);
+    };
+
+    const reqData = JSON.stringify(form.songTitle.title + form.songTitle.value);
+    console.log(JSON.stringify(reqData));
+    apiCall('POST', 'song/add', reqData);
+    console.log(responseText);
+
+    // if (artist && artistType.value !== 'Choose...' && album){
+    //     console.log(artist.value);
+    //     console.log(artistType.value);
+    //     console.log(album.value);
+    //     console.log(songTitle.value)
+    // }
+    // else if (artistType.value !== 'Choose...' && artist){
+    //     console.log(artist.value);
+    //     console.log(artistType.value);
+    //     console.log(songTitle.value)
+    // }else{
+    //     console.log(songTitle.value)
+    // }
 }
