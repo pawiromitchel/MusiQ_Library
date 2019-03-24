@@ -1,31 +1,46 @@
-loadSongsMenu();
+// loadSongsMenu();
 var songDataList = [];
 var responseText = [];
 
-document.getElementById('actArtist').addEventListener('click', addArtistFields);
+// document.getElementById('actArtist').addEventListener('click', addArtistFields);
 
-document.getElementById('actAlbum').addEventListener('click', function () {
-    const album = `
-    <input class="form-control" id="album" placeholder="Album" type="text">
-    `;
-    document.getElementById('albumField').innerHTML += album;
-    document.getElementById('actAlbum').style.display = 'none';
-});
+// document.getElementById('actAlbum').addEventListener('click', function () {
+//
+// });
+
+function addAlbumField() {
+    const btn = document.getElementById('actAlbum');
+    if (btn.style.display === "") {
+        btn.style.display = 'none';
+        const album = `
+        <input class="form-control" id="album" placeholder="Album" type="text">
+        `;
+        document.getElementById('albumField').innerHTML += album;
+
+    } else {
+        btn.style.display = 'block';
+    }
+}
 
 function addArtistFields() {
-    const artistType = `
-        <select class="custom-select" id="artistType">
-            <option selected>Choose...</option>
-            <option value="SOLO">Solo</option>
-            <option value="DUO">Duo</option>
-            <option value="BAND">Band</option>
-        </select>`;
-    document.getElementById('artistType').innerHTML += artistType;
+    const btn = document.getElementById('actArtist');
+    if (btn.style.display === "") {
+        btn.style.display = 'none';
+        const artistType = `
+            <select class="custom-select" id="artistType">
+                <option selected>Choose...</option>
+                <option value="SOLO">Solo</option>
+                <option value="DUO">Duo</option>
+                <option value="BAND">Band</option>
+            </select>`;
+        const artist = `
+        <input class="form-control" id="artist" placeholder="Artist" type="text">`;
+        document.getElementById('artistField').innerHTML += artist;
+        document.getElementById('type').innerHTML += artistType;
 
-    const artist = `
-    <input class="form-control" id="artist" placeholder="Artist" type="text">`;
-    document.getElementById('artistField').innerHTML += artist;
-    document.getElementById('actArtist').style.display = 'none';
+    } else {
+        btn.style.display = 'block';
+    }
 }
 
 function loadSongsMenu() {
@@ -51,19 +66,21 @@ function apiCall(method, entity, body) {
     let url = "http://localhost:8080/musiQ_library/api/";
     let newUrl = url + entity.toLowerCase();
     let xhttp = new XMLHttpRequest();
+
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             responseText = this.responseText;
         }
     };
+
     if (method === 'GET') {
         xhttp.open(method, newUrl, false);
         xhttp.send();
     } else if (method === 'POST') {
-        xhttp.open(method, newUrl);
-        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.open(method, newUrl, true);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send(JSON.stringify(body));
-
+        // xhttp.send(body);
     }
 }
 
@@ -98,34 +115,47 @@ function loadAlbums() { //TODO
 
 function postData() {
 
-    const form = {
-        songTitle: document.getElementById('title')
-        // artist: document.getElementById('artist'),
-        // artistType: document.getElementById('selectArtistType'),
-        // album: document.getElementById('album')
-    };
+    let songTitle = document.getElementById('title').value;
+    let artist = null;
+    let artistType = null;
+    let album = null;
+    let songData = {};
+    let artistData = {};
 
-    const request = new XMLHttpRequest();
-    request.onload = () => {
-        console.log(request.responseText);
-    };
+    if (document.getElementById('album')) {
+        album = document.getElementById('album').value;
+    }
 
-    const reqData = JSON.stringify(form.songTitle.title + form.songTitle.value);
-    console.log(JSON.stringify(reqData));
-    apiCall('POST', 'song/add', reqData);
-    console.log(responseText);
+    if (document.getElementById('artistType') &&
+        document.getElementById('artist')) {
+        artistType = document.getElementById('artistType').value;
+        artist = document.getElementById('artist').value;
+    }
 
-    // if (artist && artistType.value !== 'Choose...' && album){
-    //     console.log(artist.value);
-    //     console.log(artistType.value);
-    //     console.log(album.value);
-    //     console.log(songTitle.value)
-    // }
-    // else if (artistType.value !== 'Choose...' && artist){
-    //     console.log(artist.value);
-    //     console.log(artistType.value);
-    //     console.log(songTitle.value)
-    // }else{
-    //     console.log(songTitle.value)
-    // }
+    if (songTitle) {
+        if (album && artist && artistType) {
+            songData = {
+                "title": songTitle,
+                "album": {
+                    "albumTitle": album,
+                    "artist": {
+                        "artistName": artist,
+                        "artistType": artistType
+                    }
+                }
+            }
+        } else if (album) {
+            songData = {
+                "title": songTitle,
+                "album": {
+                    "albumTitle": album
+                }
+            };
+        } else {
+            songData = {
+                "title": songTitle,
+            }
+        }
+        apiCall('POST', 'song/add', songData);
+    }
 }

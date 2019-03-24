@@ -1,5 +1,7 @@
 package sr.unasat.musiQ_library.service;
 
+import sr.unasat.musiQ_library.dao.AlbumDAO;
+import sr.unasat.musiQ_library.dao.ArtistDAO;
 import sr.unasat.musiQ_library.dao.SongDAO;
 import sr.unasat.musiQ_library.entity.Song;
 
@@ -10,10 +12,14 @@ import java.util.List;
 public class SongService {
 
     private SongDAO songDAO;
+    private AlbumDAO albumDAO;
+    private ArtistDAO artistDAO;
     private List<Song> songList;
 
     public SongService(EntityManager entityManager) {
         songDAO = new SongDAO(entityManager);
+        albumDAO = new AlbumDAO(entityManager);
+        artistDAO = new ArtistDAO(entityManager);
         songList = findAll();
     }
 
@@ -22,6 +28,12 @@ public class SongService {
     }
 
     public Song add(Song song) {
+        if (song.getAlbum() != null) {
+            albumDAO.addAlbum(song.getAlbum());
+        }
+        if (song.getAlbum().getArtist() != null) {
+            artistDAO.addArtist(song.getAlbum().getArtist());
+        }
         songList.add(songDAO.addSong(song));
         return song;
     }

@@ -1,7 +1,5 @@
 package sr.unasat.musiQ_library.dto;
 
-import sr.unasat.musiQ_library.entity.Album;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
@@ -11,21 +9,22 @@ public class SongDTO {
     private String title;
     @Max(4)
     private int releaseYear;
-    private Album album;
+    private AlbumDTO album;
     private boolean isFavorite;
 
     public SongDTO() {
     }
 
-    public SongDTO(String title, int releaseYear, Album album, boolean isFavorite) {
+    public SongDTO(String title, int releaseYear, AlbumDTO album, boolean isFavorite) {
         this.title = title;
         this.releaseYear = releaseYear;
         this.album = album;
         this.isFavorite = isFavorite;
     }
 
-    public SongDTO(String title) {
+    public SongDTO(String title, AlbumDTO album) {
         this.title = title;
+        this.album = album;
     }
 
     public Long getId() {
@@ -53,14 +52,24 @@ public class SongDTO {
     }
 
     public String getArtist() {
-        return album.getArtist().getArtistName();
+        if (album == null) {
+            return "";
+        }
+        return album.getArtist();
+    }
+
+    public void setArtist(ArtistDTO artist) {
+        this.album.setArtist(artist);
     }
 
     public String getAlbum() {
+        if (album == null) {
+            return "";
+        }
         return album.getAlbumTitle();
     }
 
-    public void setAlbum(Album album) {
+    public void setAlbum(AlbumDTO album) {
         this.album = album;
     }
 
