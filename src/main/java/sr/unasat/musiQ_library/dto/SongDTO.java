@@ -11,16 +11,16 @@ public class SongDTO {
     private String title;
     @Max(4)
     private int releaseYear;
-    private Album albumTitle;
+    private Album album;
     private boolean isFavorite;
 
     public SongDTO() {
     }
 
-    public SongDTO(String title, int releaseYear, Album albumTitle, boolean isFavorite) {
+    public SongDTO(String title, int releaseYear, Album album, boolean isFavorite) {
         this.title = title;
         this.releaseYear = releaseYear;
-        this.albumTitle = albumTitle;
+        this.album = album;
         this.isFavorite = isFavorite;
     }
 
@@ -53,15 +53,15 @@ public class SongDTO {
     }
 
     public String getArtist() {
-        return albumTitle.getArtist().getArtistName();
+        return album.getArtist().getArtistName();
     }
 
-    public String getAlbumTitle() {
-        return albumTitle.getAlbumTitle();
+    public String getAlbum() {
+        return album.getAlbumTitle();
     }
 
-    public void setAlbumTitle(Album albumTitle) {
-        this.albumTitle = albumTitle;
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 
     public boolean isFavorite() {

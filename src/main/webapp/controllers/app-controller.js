@@ -23,7 +23,7 @@ function addArtistFields() {
     document.getElementById('artistType').innerHTML += artistType;
 
     const artist = `
-    <input class="form-control" id="artistName" placeholder="Artist" type="text">`;
+    <input class="form-control" id="artist" placeholder="Artist" type="text">`;
     document.getElementById('artistField').innerHTML += artist;
     document.getElementById('actArtist').style.display = 'none';
 }
