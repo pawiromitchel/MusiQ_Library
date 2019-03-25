@@ -5,17 +5,17 @@ function loadAllSongs() {
     apiCall('song/list');
     if (JSON.parse(responseText)) {
         songDataList = JSON.parse(responseText);
-        const songList = document.getElementById('allSongs');
+        const songList = document.getElementById('songTable');
         songDataList.forEach(song => {
             const data = `
             <tr class="table-light" style="background-color: rgba(225, 225, 225, 0.8)">
-            <a href="./song-detail.html?id=${song.id}" style="color:black"">
-                    <p>Title: ${song.title}<br>
-                    Artist: ${song.artist} <br>
-                    Album:  ${song.album} <br></p>
-                    </a></tr>
+                    <td id="song">
+                        <a href="./song-detail.html?id=${song.id}" style="color:black"">${song.title}</a>
+                     </td>
+                    <td id="artist">${song.artist}</td>
+                    <td id="album">${song.album}</td></tr>
             `;
-            window.sessionStorage.setItem('id', JSON.stringify(song));
+            window.sessionStorage.setItem(`${song.id}`, JSON.stringify(song));
             songList.innerHTML += data;
         });
     }
