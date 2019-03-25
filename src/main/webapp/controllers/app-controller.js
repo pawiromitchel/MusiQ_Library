@@ -1,4 +1,4 @@
-// loadSongsMenu();
+loadSongsMenu();
 var songDataList = [];
 var responseText = [];
 
@@ -56,7 +56,7 @@ function loadSongsMenu() {
                     Album:  ${song.album} <br></p>
                     </a></tr>
             `;
-            window.sessionStorage.setItem('id', JSON.stringify(song));
+            window.sessionStorage.setItem(`${song.id}`, JSON.stringify(song));
             songList.innerHTML += data;
         })
     }

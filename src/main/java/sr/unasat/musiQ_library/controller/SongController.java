@@ -2,6 +2,7 @@ package sr.unasat.musiQ_library.controller;
 
 import org.modelmapper.ModelMapper;
 import sr.unasat.musiQ_library.config.JPAConfiguration;
+import sr.unasat.musiQ_library.dto.ArtistDTO;
 import sr.unasat.musiQ_library.dto.SongDTO;
 import sr.unasat.musiQ_library.entity.Song;
 import sr.unasat.musiQ_library.service.SongService;
@@ -28,7 +29,9 @@ public class SongController {
         List<Song> songs = songService.findAll();
         SongDTO songDTO;
         for (Song song : songs) {
+            ArtistDTO artistDTO = modelMapper.map(song.getAlbum().getArtist(), ArtistDTO.class);
             songDTO = modelMapper.map(song, SongDTO.class);
+            songDTO.setArtist(artistDTO);
             songDTOS.add(songDTO);
         }
         return Response.ok(songDTOS).build();
@@ -95,7 +98,9 @@ public class SongController {
         OUTER:
         for (int i = 0; i < 5; i++) {
             s = songs.get(random.nextInt(songs.size()));
+            ArtistDTO artistDTO = modelMapper.map(s.getAlbum().getArtist(), ArtistDTO.class);
             songDTO = modelMapper.map(s, SongDTO.class);
+            songDTO.setArtist(artistDTO);
             if (randomSongs.size() == 0) {
                 randomSongs.add(songDTO);
             } else {
@@ -103,7 +108,9 @@ public class SongController {
                     if (randomSongs.get(j).getTitle().toLowerCase().trim()
                             .equals(s.getTitle().toLowerCase().trim())) {
                         s = songs.get(random.nextInt(songs.size()));
+                        artistDTO = modelMapper.map(s.getAlbum().getArtist(), ArtistDTO.class);
                         songDTO = modelMapper.map(s, SongDTO.class);
+                        songDTO.setArtist(artistDTO);
                         randomSongs.add(j, songDTO);
                         continue OUTER;
                     }

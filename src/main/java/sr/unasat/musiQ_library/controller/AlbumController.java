@@ -3,6 +3,7 @@ package sr.unasat.musiQ_library.controller;
 import org.modelmapper.ModelMapper;
 import sr.unasat.musiQ_library.config.JPAConfiguration;
 import sr.unasat.musiQ_library.dto.AlbumDTO;
+import sr.unasat.musiQ_library.dto.ArtistDTO;
 import sr.unasat.musiQ_library.dto.SongDTO;
 import sr.unasat.musiQ_library.entity.Album;
 import sr.unasat.musiQ_library.entity.Song;
@@ -29,7 +30,9 @@ public class AlbumController {
         AlbumDTO albumDTO;
         List<Album> albums = albumService.findAll();
         for (Album album : albums) {
+            ArtistDTO artistDTO = modelMapper.map(album.getArtist(), ArtistDTO.class);
             albumDTO = modelMapper.map(album, AlbumDTO.class);
+            albumDTO.setArtist(artistDTO);
             albumAlbumDTOS.add(albumDTO);
         }
         return Response.ok(albumAlbumDTOS).build();

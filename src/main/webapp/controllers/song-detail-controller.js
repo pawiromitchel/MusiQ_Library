@@ -2,7 +2,7 @@ getSongDetail();
 
 function getSongDetail() {
     let urlParams = window.location.search.substring(1).split("=");
-    let item = window.sessionStorage.getItem('id');
+    let item = window.sessionStorage.getItem(urlParams[1]);
     const data = JSON.parse(item);
     setSongDetail(data)
 }
