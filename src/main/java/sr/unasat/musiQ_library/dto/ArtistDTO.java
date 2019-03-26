@@ -83,8 +83,8 @@ public class ArtistDTO {
         isFollowed = followed;
     }
 
-    public String getArtistInfo() {
-        return artistInfo.getInfo();
+    public ArtistInfoDTO getArtistInfo() {
+        return artistInfo;
     }
 
     public void setArtistInfo(ArtistInfoDTO artistInfo) {

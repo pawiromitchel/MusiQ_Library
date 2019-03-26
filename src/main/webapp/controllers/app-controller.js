@@ -52,8 +52,8 @@ function loadSongsMenu() {
             const data = `<tr class="table-light" style="background-color: rgba(225, 225, 225, 0.8)">
             <a href="./song-detail.html?id=${song.id}" id="selectedSong" style="color:black">
                     <p>Title: ${song.title}<br>
-                    Artist: ${song.artist} <br>
-                    Album:  ${song.album} <br></p>
+                    Artist: ${song.album.artist.artistName} <br>
+                    Album:  ${song.album.albumTitle} <br></p>
                     </a></tr>
             `;
             window.sessionStorage.setItem(`${song.id}`, JSON.stringify(song));

@@ -31,7 +31,7 @@ public class SongController {
         for (Song song : songs) {
             ArtistDTO artistDTO = modelMapper.map(song.getAlbum().getArtist(), ArtistDTO.class);
             songDTO = modelMapper.map(song, SongDTO.class);
-            songDTO.setArtist(artistDTO);
+            songDTO.getAlbum().setArtist(artistDTO);
             songDTOS.add(songDTO);
         }
         return Response.ok(songDTOS).build();
@@ -42,9 +42,9 @@ public class SongController {
     public Response add(@Valid SongDTO songDTO) {
         try {
             Song song = modelMapper.map(songDTO, Song.class);
-//            song.setId(null);
             songService.add(song);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.status(Response.Status.OK).build();
@@ -58,6 +58,7 @@ public class SongController {
             Song song = modelMapper.map(songDTO, Song.class);
             songService.update(song);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.status(Response.Status.OK).build();
@@ -69,6 +70,7 @@ public class SongController {
         try {
             songService.delete(id);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.status(Response.Status.OK).build();
@@ -82,6 +84,7 @@ public class SongController {
             Song song = songService.getSong(id);
             songDTO = modelMapper.map(song, SongDTO.class);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok(songDTO).build();
@@ -100,7 +103,7 @@ public class SongController {
             s = songs.get(random.nextInt(songs.size()));
             ArtistDTO artistDTO = modelMapper.map(s.getAlbum().getArtist(), ArtistDTO.class);
             songDTO = modelMapper.map(s, SongDTO.class);
-            songDTO.setArtist(artistDTO);
+            songDTO.getAlbum().setArtist(artistDTO);
             if (randomSongs.size() == 0) {
                 randomSongs.add(songDTO);
             } else {
@@ -110,7 +113,7 @@ public class SongController {
                         s = songs.get(random.nextInt(songs.size()));
                         artistDTO = modelMapper.map(s.getAlbum().getArtist(), ArtistDTO.class);
                         songDTO = modelMapper.map(s, SongDTO.class);
-                        songDTO.setArtist(artistDTO);
+                        songDTO.getAlbum().setArtist(artistDTO);
                         randomSongs.add(j, songDTO);
                         continue OUTER;
                     }

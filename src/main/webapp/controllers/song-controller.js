@@ -13,7 +13,7 @@ function loadAllSongs() {
                         <a href="./song-detail.html?id=${song.id}" style="color:black"">${song.title}</a>
                      </td>
                     <td id="artist">${song.artist}</td>
-                    <td id="album">${song.album}</td></tr>
+                    <td id="album">${song.album.albumTitle}</td></tr>
             `;
             window.sessionStorage.setItem(`${song.id}`, JSON.stringify(song));
             songList.innerHTML += data;

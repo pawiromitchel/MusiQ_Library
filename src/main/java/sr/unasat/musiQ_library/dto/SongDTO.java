@@ -51,22 +51,22 @@ public class SongDTO {
         this.releaseYear = releaseYear;
     }
 
-    public String getArtist() {
-        if (album == null) {
-            return "";
-        }
-        return album.getArtist();
-    }
+//    public ArtistDTO getArtist() {
+//        if (album == null) {
+//            return null;
+//        }
+//        return album.getArtist();
+//    }
+//
+//    public void setArtist(ArtistDTO artist) {
+//        this.album.setArtist(artist);
+//    }
 
-    public void setArtist(ArtistDTO artist) {
-        this.album.setArtist(artist);
-    }
-
-    public String getAlbum() {
+    public AlbumDTO getAlbum() {
         if (album == null) {
-            return "";
+            return null;
         }
-        return album.getAlbumTitle();
+        return album;
     }
 
     public void setAlbum(AlbumDTO album) {

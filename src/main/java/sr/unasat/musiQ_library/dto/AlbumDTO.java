@@ -52,8 +52,8 @@ public class AlbumDTO extends AlbumDecorator {
         this.releaseYear = releaseYear;
     }
 
-    public String getArtist() {
-        return artist.getArtistName();
+    public ArtistDTO getArtist() {
+        return artist;
     }
 
     public void setArtist(ArtistDTO artist) {
