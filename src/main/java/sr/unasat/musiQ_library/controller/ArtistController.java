@@ -39,6 +39,7 @@ public class ArtistController {
             Artist artist = modelMapper.map(artistDTO, Artist.class);
             artistService.add(artist);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();
@@ -52,6 +53,7 @@ public class ArtistController {
             Artist artist = modelMapper.map(artistDTO, Artist.class);
             artistService.update(artist);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();
@@ -63,6 +65,7 @@ public class ArtistController {
         try {
             artistService.delete(id);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();
@@ -75,6 +78,7 @@ public class ArtistController {
         try {
             artistDTO = modelMapper.map(artistService.getArtist(id), ArtistDTO.class);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok(artistDTO).build();

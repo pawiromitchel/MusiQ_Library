@@ -45,6 +45,7 @@ public class AlbumController {
             Album album = modelMapper.map(albumDTO, Album.class);
             albumService.add(album);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();
@@ -58,6 +59,7 @@ public class AlbumController {
             Album album = modelMapper.map(albumDTO, Album.class);
             albumService.update(album);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();
@@ -69,6 +71,7 @@ public class AlbumController {
         try {
             albumService.delete(id);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();
@@ -81,6 +84,7 @@ public class AlbumController {
         try {
             albumDTO = modelMapper.map(albumService.getAlbum(id), AlbumDTO.class);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok(albumDTO).build();
@@ -109,6 +113,7 @@ public class AlbumController {
             }
             albumService.addSongsToAlbum(album, albumSongs);
         } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();
