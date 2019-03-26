@@ -2,12 +2,6 @@ loadSongsMenu();
 var songDataList = [];
 var responseText = [];
 
-// document.getElementById('actArtist').addEventListener('click', addArtistFields);
-
-// document.getElementById('actAlbum').addEventListener('click', function () {
-//
-// });
-
 function addAlbumField() {
     const btn = document.getElementById('actAlbum');
     if (btn.style.display === "") {
@@ -120,7 +114,6 @@ function postData() {
     let artistType = null;
     let album = null;
     let songData = {};
-    let artistData = {};
 
     if (document.getElementById('album')) {
         album = document.getElementById('album').value;
@@ -131,6 +124,8 @@ function postData() {
         artistType = document.getElementById('artistType').value;
         artist = document.getElementById('artist').value;
     }
+
+    validate(songTitle, artist, artistType, album);
 
     if (songTitle) {
         if (album && artist && artistType) {
@@ -157,5 +152,12 @@ function postData() {
             }
         }
         apiCall('POST', 'song/add', songData);
+    }
+}
+
+function validate(songTitle, artist, artistType, album) {
+
+    if (songTitle === '' || artist === '' || artistType === '' || album === '') {
+
     }
 }

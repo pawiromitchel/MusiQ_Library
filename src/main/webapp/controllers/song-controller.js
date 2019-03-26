@@ -12,7 +12,7 @@ function loadAllSongs() {
                     <td id="song">
                         <a href="./song-detail.html?id=${song.id}" style="color:black"">${song.title}</a>
                      </td>
-                    <td id="artist">${song.artist}</td>
+                    <td id="artist">${song.album.artist.artistName}</td>
                     <td id="album">${song.album.albumTitle}</td></tr>
             `;
             window.sessionStorage.setItem(`${song.id}`, JSON.stringify(song));
@@ -28,6 +28,8 @@ function apiCall(entity) {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             responseText = this.responseText;
+        } else if (this.status === 400) {
+            alert("Something went wrong");
         }
     };
     xhttp.open('GET', newUrl, false);
