@@ -1,15 +1,11 @@
 package sr.unasat.musiQ_library.designPatterns.decorator;
 
-import sr.unasat.musiQ_library.dto.SongDTO;
-
-import java.util.List;
+import sr.unasat.musiQ_library.entity.Artist;
 
 public interface DecoratorBase {
 
-    void addSong(SongDTO song);
+    Artist getArtist();
 
-    List<String> getSongList();
-
-    void setSongList(List<SongDTO> songList);
+    void setArtist(Artist artist);
 
 }

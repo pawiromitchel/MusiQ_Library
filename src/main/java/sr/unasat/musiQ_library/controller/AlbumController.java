@@ -26,16 +26,19 @@ public class AlbumController {
     @Path("/list")
     @GET
     public Response findAll() {
-        List<AlbumDTO> albumAlbumDTOS = new ArrayList<>();
+        List<AlbumDTO> albumDTOS = new ArrayList<>();
         AlbumDTO albumDTO;
         List<Album> albums = albumService.findAll();
         for (Album album : albums) {
+            List<SongDTO> songDTOS = new ArrayList<>();
             ArtistDTO artistDTO = modelMapper.map(album.getArtist(), ArtistDTO.class);
+            album.getSongList().forEach(song -> songDTOS.add(modelMapper.map(song, SongDTO.class)));
             albumDTO = modelMapper.map(album, AlbumDTO.class);
             albumDTO.setArtist(artistDTO);
-            albumAlbumDTOS.add(albumDTO);
+            albumDTO.setSongList(songDTOS);
+            albumDTOS.add(albumDTO);
         }
-        return Response.ok(albumAlbumDTOS).build();
+        return Response.ok(albumDTOS).build();
     }
 
     @Path("/add")
@@ -94,11 +97,7 @@ public class AlbumController {
     @GET
     public List<String> getSongsFromAlbum(@PathParam("albumId") Long albumId) {
         AlbumDTO albumDTO = modelMapper.map(albumService.getAlbum(albumId), AlbumDTO.class);
-        List<String> titles = new ArrayList<>();
-        for (String song : albumDTO.getSongList()) {
-            titles.add(song);
-        }
-        return titles;
+        return albumDTO.getSongList();
     }
 
     @Path("/add/{albumId}/songs")

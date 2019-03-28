@@ -1,13 +1,14 @@
 package sr.unasat.musiQ_library.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import sr.unasat.musiQ_library.designPatterns.decorator.DecoratorBase;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table
-public class Album {
+public class Album implements DecoratorBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,10 +53,12 @@ public class Album {
         this.albumTitle = albumName;
     }
 
+    @Override
     public Artist getArtist() {
         return artist;
     }
 
+    @Override
     public void setArtist(Artist artist) {
         this.artist = artist;
     }

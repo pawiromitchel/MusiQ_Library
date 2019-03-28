@@ -1,11 +1,11 @@
 package sr.unasat.musiQ_library.dto;
 
-import sr.unasat.musiQ_library.designPatterns.decorator.AlbumDecorator;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AlbumDTO extends AlbumDecorator {
+public class AlbumDTO {
     private Long id;
     @NotNull
     private String albumTitle;
@@ -13,6 +13,7 @@ public class AlbumDTO extends AlbumDecorator {
     private int releaseYear;
     @NotNull
     private ArtistDTO artist;
+    private List<SongDTO> songList;
 
     public AlbumDTO() {
     }
@@ -58,5 +59,15 @@ public class AlbumDTO extends AlbumDecorator {
 
     public void setArtist(ArtistDTO artist) {
         this.artist = artist;
+    }
+
+    public List<String> getSongList() {
+        List<String> songs = new ArrayList<>();
+        songList.forEach(song -> songs.add(song.getTitle()));
+        return songs;
+    }
+
+    public void setSongList(List<SongDTO> songList) {
+        this.songList = songList;
     }
 }
