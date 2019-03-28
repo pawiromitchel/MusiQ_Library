@@ -28,9 +28,14 @@ CREATE TABLE IF NOT EXISTS `musiq_library`.`artist`
 (
   `id`          BIGINT(4)   NOT NULL AUTO_INCREMENT,
   `artist_name` VARCHAR(45) NOT NULL UNIQUE,
-  `artist_type` VARCHAR(45) NOT NULL,
+  `artist_type` BIGINT(4)   NOT NULL,
   `is_followed` INT(1)      NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT `artist_type_fk`
+    FOREIGN KEY (`artist_type`)
+      REFERENCES `musiq_library`.`artist_type_code` (`id`)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
 )
   ENGINE = InnoDB;
 
@@ -121,9 +126,41 @@ CREATE TABLE IF NOT EXISTS `musiq_library`.`artist_info`
   ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `musiq_library`.`artist_type_code`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `musiq_library`.`artist_type_code`;
+
+CREATE TABLE IF NOT EXISTS `musiq_library`.`artist_type_code`
+(
+  `id`          BIGINT(4)   NOT NULL AUTO_INCREMENT,
+  `artist_type` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`)
+)
+  ENGINE = InnoDB;
+
+
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
+
+
+-- -----------------------------------------------------
+-- Data for table `musiq_library`.`artist_type_code`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `musiq_library`;
+INSERT INTO `musiq_library`.`artist_type_code` (`id`, `artist_type`)
+VALUES ('1', 'Solo');
+INSERT INTO `musiq_library`.`artist_type_code` (`id`, `artist_type`)
+VALUES ('2', 'Duo');
+INSERT INTO `musiq_library`.`artist_type_code` (`id`, `artist_type`)
+VALUES ('3', 'Group');
+INSERT INTO `musiq_library`.`artist_type_code` (`id`, `artist_type`)
+VALUES ('4', 'Band');
+
+COMMIT;
+
 
 -- -----------------------------------------------------
 -- Data for table `musiq_library`.`artist`
@@ -131,37 +168,37 @@ SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `musiq_library`;
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Queen', 'BAND', 0);
+VALUES ('Queen', 4, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Bon Jovi', 'BAND', 0);
+VALUES ('Bon Jovi', 4, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Eminem', 'SOLO', 0);
+VALUES ('Eminem', 1, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Michael Jackson', 'SOLO', '0');
+VALUES ('Michael Jackson', 1, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('\'N Sync', 'BAND', '0');
+VALUES ('\'N Sync', 4, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('NWA', 'GROUP', '0');
+VALUES ('NWA', 3, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Linkin Park', 'BAND', '0');
+VALUES ('Linkin Park', 4, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Marroon 5', 'BAND', '0');
+VALUES ('Marroon 5', 4, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Bruno Mars', 'SOLO', '0');
+VALUES ('Bruno Mars', 1, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Daft Punk', 'DUO', '0');
+VALUES ('Daft Punk', 2, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Alicia Keys', 'SOLO', '0');
+VALUES ('Alicia Keys', 1, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Jay-Z', 'SOLO', '0');
+VALUES ('Jay-Z', 1, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Beyonce', 'SOLO', '0');
+VALUES ('Beyonce', 1, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Destiny\'s Child', 'GROUP', '0');
+VALUES ('Destiny\'s Child', 3, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('Boyz II Men', 'GROUP', '0');
+VALUES ('Boyz II Men', 3, 0);
 INSERT INTO `musiq_library`.`artist` (`artist_name`, `artist_type`, `is_followed`)
-VALUES ('The Temptations', 'GROUP', '0');
+VALUES ('The Temptations', 3, 0);
 
 
 COMMIT;
@@ -173,11 +210,11 @@ COMMIT;
 START TRANSACTION;
 USE `musiq_library`;
 INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
-VALUES ('Bohemian Rhapsody', 1, 1975);
+VALUES ('Bohemian Rhapsody', '1', '1975');
 INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
-VALUES ('Slippery When Wet', 2, 1986);
+VALUES ('Slippery When Wet', '2', '1986');
 INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
-VALUES ('The Marshall Mathers LP', 3, 2000);
+VALUES ('The Marshall Mathers LP', '3', '2000');
 INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
 VALUES ('Thriller', '4', '1982');
 INSERT INTO `musiq_library`.`album` (`album_title`, `artist_id`, `release_year`)
@@ -215,11 +252,11 @@ COMMIT;
 START TRANSACTION;
 USE `musiq_library`;
 INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`)
-VALUES ('Living on a Prayer', 1986, 2, 0);
+VALUES ('Living on a Prayer', '1986', '2', '0');
 INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`)
-VALUES ('Bohemian Rhapsody', 1975, 1, 0);
+VALUES ('Bohemian Rhapsody', '1975', '1', '0');
 INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`)
-VALUES ('The Real Slim Shady', 2000, 3, 0);
+VALUES ('The Real Slim Shady', '2000', '3', '0');
 INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
 VALUES ('Thriller', '1982', '4', '0');
 INSERT INTO `musiq_library`.`song` (`title`, `release_year`, `album_id`, `is_favorite`) 
