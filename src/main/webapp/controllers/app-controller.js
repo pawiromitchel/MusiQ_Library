@@ -22,15 +22,15 @@ function addArtistFields() {
         btn.style.display = 'none';
         const artistType = `
             <select class="custom-select" id="artistType">
-                <option selected>Choose...</option>
-                <option value="SOLO">Solo</option>
-                <option value="DUO">Duo</option>
-                <option value="BAND">Band</option>
+                <option selected disabled>Choose...</option>
             </select>`;
+
         const artist = `
         <input class="form-control" id="artist" placeholder="Artist" type="text">`;
         document.getElementById('artistField').innerHTML += artist;
         document.getElementById('type').innerHTML += artistType;
+
+        getArtistTypes();
 
     } else {
         btn.style.display = 'block';
@@ -135,7 +135,9 @@ function postData() {
                     "albumTitle": album,
                     "artist": {
                         "artistName": artist,
-                        "artistType": artistType
+                        "artistType": {
+                            "artistType": artistType
+                        }
                     }
                 }
             }
@@ -160,4 +162,15 @@ function validate(songTitle, artist, artistType, album) {
     if (songTitle === '' || artist === '' || artistType === '' || album === '') {
 
     }
+}
+
+function getArtistTypes() {
+    const typeOption = document.getElementById('artistType');
+    apiCall("GET", 'artist/types', null);
+    let data = JSON.parse(this.responseText);
+    data.forEach(type => {
+        const option =
+            `<option value="${type}"><b>${type}</b></option>`;
+        typeOption.innerHTML += option;
+    });
 }

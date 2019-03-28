@@ -1,8 +1,6 @@
 package sr.unasat.musiQ_library.dto;
 
 
-import sr.unasat.musiQ_library.entity.ArtistTypeCode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,7 @@ public class ArtistDTO {
     private Long id;
     private String artistName;
     private List<AlbumDTO> album = new ArrayList<>();
-    private ArtistTypeCode artistType;
+    private ArtistTypeCodeDTO artistType;
     private boolean isFollowed;
     private ArtistInfoDTO artistInfo;
 
@@ -19,7 +17,7 @@ public class ArtistDTO {
     }
 
     public ArtistDTO(Long id, String artistName, List<AlbumDTO> album,
-                     ArtistTypeCode artistType, boolean isFollowed) {
+                     ArtistTypeCodeDTO artistType, boolean isFollowed) {
         this.id = id;
         this.artistName = artistName;
         this.album = album;
@@ -27,7 +25,7 @@ public class ArtistDTO {
         this.isFollowed = isFollowed;
     }
 
-    public ArtistDTO(Long id, String artistName, ArtistTypeCode artistType, boolean isFollowed) {
+    public ArtistDTO(Long id, String artistName, ArtistTypeCodeDTO artistType, boolean isFollowed) {
         this.id = id;
         this.artistName = artistName;
         this.artistType = artistType;
@@ -71,7 +69,7 @@ public class ArtistDTO {
         return artistType.getArtistType();
     }
 
-    public void setArtistType(ArtistTypeCode artistType) {
+    public void setArtistType(ArtistTypeCodeDTO artistType) {
         this.artistType = artistType;
     }
 

@@ -1,6 +1,8 @@
 package sr.unasat.musiQ_library.dto;
 
-public class ArtistTypeCodeDTO {
+import sr.unasat.musiQ_library.designPatterns.state.ArtistState;
+
+public class ArtistTypeCodeDTO extends ArtistState {
 
     private Long id;
 
