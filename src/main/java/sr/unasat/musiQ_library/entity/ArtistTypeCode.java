@@ -1,30 +1,43 @@
 package sr.unasat.musiQ_library.entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import sr.unasat.musiQ_library.designPatterns.state.ArtistState;
 
-public enum ArtistTypeCode {
+import javax.persistence.*;
 
-    SOLO("Solo"),
-    DUO("Duo"),
-    GROUP("Group"),
-    BAND("BAND");
+@Entity
+@Table(name = "artist_type_code")
+public class ArtistTypeCode extends ArtistState {
 
-    private final String value;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    ArtistTypeCode(String value) {
-        this.value = value;
+    @Column(name = "artist_type", unique = true, nullable = false)
+    private String artistType;
+
+    public ArtistTypeCode() {
     }
 
-    public static Map<String, String> toList() {
-        Map<String, String> map = new HashMap<>();
-        for (ArtistTypeCode artistType : ArtistTypeCode.values()) {
-            map.put(artistType.name(), artistType.getValue());
-        }
-        return map;
+    public ArtistTypeCode(String artistType) {
+        super(artistType);
     }
 
-    public String getValue() {
-        return value;
+    @Override
+    public String getArtistType() {
+        return artistType;
     }
+
+    @Override
+    public void setArtistType(String artistType) {
+        this.artistType = artistType;
+    }
+
+//    public Artist getArtist() {
+//        return artist;
+//    }
+//
+//    public void setArtist(Artist artist) {
+//        this.artist = artist;
+//    }
 }
+

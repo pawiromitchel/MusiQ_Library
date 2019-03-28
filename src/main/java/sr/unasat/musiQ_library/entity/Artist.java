@@ -21,8 +21,8 @@ public class Artist {
     @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY)
     private List<Album> album;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "artist_type", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "artist_type", nullable = false)
     private ArtistTypeCode artistType;
 
     @Column(name = "is_followed")
@@ -57,8 +57,8 @@ public class Artist {
         this.artistName = name;
     }
 
-    public ArtistTypeCode getArtistType() {
-        return artistType;
+    public String getArtistType() {
+        return artistType.getArtistType();
     }
 
     public void setArtistType(ArtistTypeCode artistType) {
