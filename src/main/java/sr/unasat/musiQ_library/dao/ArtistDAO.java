@@ -36,6 +36,7 @@ public class ArtistDAO {
                 throw new EntityExistsException();
             }
         }
+        entityManager.persist(artist.getArtistType());
         entityManager.persist(artist);
         entityManager.getTransaction().commit();
         return artist;

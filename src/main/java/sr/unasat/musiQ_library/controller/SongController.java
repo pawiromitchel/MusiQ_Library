@@ -5,6 +5,8 @@ import sr.unasat.musiQ_library.config.JPAConfiguration;
 import sr.unasat.musiQ_library.dto.ArtistDTO;
 import sr.unasat.musiQ_library.dto.ArtistTypeCodeDTO;
 import sr.unasat.musiQ_library.dto.SongDTO;
+import sr.unasat.musiQ_library.entity.Artist;
+import sr.unasat.musiQ_library.entity.ArtistTypeCode;
 import sr.unasat.musiQ_library.entity.Song;
 import sr.unasat.musiQ_library.service.SongService;
 
@@ -45,6 +47,9 @@ public class SongController {
     @POST
     public Response add(@Valid SongDTO songDTO) {
         try {
+            ArtistTypeCode artistTypeCode = modelMapper.map(songDTO.getAlbum().getArtist().getArtistType(), ArtistTypeCode.class);
+            Artist artist = modelMapper.map(songDTO.getAlbum().getArtist(), Artist.class);
+            artist.setArtistType(artistTypeCode);
             Song song = modelMapper.map(songDTO, Song.class);
             songService.add(song);
         } catch (Exception e) {

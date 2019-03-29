@@ -13,7 +13,7 @@ public class AlbumDTO {
     private int releaseYear;
     @NotNull
     private ArtistDTO artist;
-    private List<SongDTO> songList;
+    private List<SongDTO> songList = new ArrayList<>();
 
     public AlbumDTO() {
     }
