@@ -57,8 +57,8 @@ public class Artist {
         this.artistName = name;
     }
 
-    public String getArtistType() {
-        return artistType.getArtistType();
+    public ArtistTypeCode getArtistType() {
+        return artistType;
     }
 
     public void setArtistType(ArtistTypeCode artistType) {

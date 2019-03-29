@@ -65,8 +65,8 @@ public class ArtistDTO {
         this.album = album;
     }
 
-    public String getArtistType() {
-        return artistType.getArtistType();
+    public ArtistTypeCodeDTO getArtistType() {
+        return artistType;
     }
 
     public void setArtistType(ArtistTypeCodeDTO artistType) {
