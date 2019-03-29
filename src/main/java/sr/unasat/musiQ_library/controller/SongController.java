@@ -102,32 +102,21 @@ public class SongController {
         Random random = new Random();
         SongDTO songDTO;
         Song s;
-        OUTER:
-        for (int i = 0; i < 5; i++) {
+        do {
             s = songs.get(random.nextInt(songs.size()));
+            for (SongDTO dto : randomSongs) {
+                if (dto.getId() == s.getId()) {
+                    s = songs.get(random.nextInt(songs.size()));
+                }
+            }
+            ArtistTypeCodeDTO artistTypeCodeDTO = modelMapper.map(s.getAlbum()
+                    .getArtist().getArtistType(), ArtistTypeCodeDTO.class);
             ArtistDTO artistDTO = modelMapper.map(s.getAlbum().getArtist(), ArtistDTO.class);
+            artistDTO.setArtistType(artistTypeCodeDTO);
             songDTO = modelMapper.map(s, SongDTO.class);
             songDTO.getAlbum().setArtist(artistDTO);
-            if (randomSongs.size() == 0) {
-                randomSongs.add(songDTO);
-            } else {
-                for (int j = 0; j < randomSongs.size(); j++) {
-                    if (randomSongs.get(j).getTitle().toLowerCase().trim()
-                            .equals(s.getTitle().toLowerCase().trim())) {
-                        s = songs.get(random.nextInt(songs.size()));
-                        ArtistTypeCodeDTO artistTypeCodeDTO = modelMapper.map(s.getAlbum()
-                                .getArtist().getArtistType(), ArtistTypeCodeDTO.class);
-                        artistDTO = modelMapper.map(s.getAlbum().getArtist(), ArtistDTO.class);
-                        artistDTO.setArtistType(artistTypeCodeDTO);
-                        songDTO = modelMapper.map(s, SongDTO.class);
-                        songDTO.getAlbum().setArtist(artistDTO);
-                        randomSongs.add(j, songDTO);
-                        continue OUTER;
-                    }
-                }
-                randomSongs.add(songDTO);
-            }
-        }
+            randomSongs.add(songDTO);
+        } while (randomSongs.size() < 5);
         return Response.ok(randomSongs).build();
     }
 }
