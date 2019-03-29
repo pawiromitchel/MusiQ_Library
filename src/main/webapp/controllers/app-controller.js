@@ -1,3 +1,5 @@
+import {sweetalert} from '../sweetalert/sweetalert.js';
+
 loadSongsMenu();
 var songDataList = [];
 var responseText = [];
@@ -67,6 +69,14 @@ function apiCall(method, entity, body) {
         }
     };
 
+    xhttp.onload = function () {
+        if (this.status === 200 && method === "POST") {
+            showAlert(this.status);
+        } else if (this.status === 400) {
+            showAlert(this.status);
+        }
+    };
+
     if (method === 'GET') {
         xhttp.open(method, newUrl, false);
         xhttp.send();
@@ -74,7 +84,6 @@ function apiCall(method, entity, body) {
         xhttp.open(method, newUrl, true);
         xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send(JSON.stringify(body));
-        // xhttp.send(body);
     }
 }
 
@@ -173,4 +182,17 @@ function getArtistTypes() {
             `<option value="${type}"><b>${type}</b></option>`;
         typeOption.innerHTML += option;
     });
+}
+
+function showAlert(xhttpStatus) {
+    const successMsg = document.getElementById('successMsg');
+    const failedMsg = document.getElementById('failedMsg');
+    let alertType = '';
+    if (xhttpStatus === 200) {
+        successMsg.innerText += 'Successful';
+        successMsg.style.display = 'block'
+    } else if (xhttpStatus === 400) {
+        failedMsg.innerText += 'Failed';
+        failedMsg.style.display = 'block'
+    }
 }
