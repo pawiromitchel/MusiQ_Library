@@ -196,8 +196,12 @@ function validate(songTitle, artist, artistType, album) {
         passed = false;
     }
 
-    if (artist && artistType && !album) {
-        alert("Fire");
+    if (artist === '' || artistType === "Choose...") {
+        alert("Please fill out the artist info")
+    }
+
+    if (album === '') {
+        alert("Please add album info");
         passed = false;
     }
     return passed;
