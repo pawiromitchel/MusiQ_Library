@@ -18,7 +18,7 @@ public class Artist {
     private String artistName;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Album> album;
 
     @OneToOne

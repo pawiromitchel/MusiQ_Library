@@ -43,9 +43,9 @@ public class ArtistService {
 
     public Artist delete(Long id) {
         Artist selectedArtist = getArtist(id);
-        if (selectedArtist.getAlbum() != null) {
-            selectedArtist.setAlbum(null);
-        }
+//        if (selectedArtist.getAlbum() != null) {
+//            selectedArtist.setAlbum(null);
+//        }
         Artist deletedArtist = artistDAO.deleteArtist(selectedArtist);
         iterate(selectedArtist, deletedArtist);
         return deletedArtist;

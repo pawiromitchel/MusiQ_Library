@@ -25,7 +25,7 @@ public class Album implements DecoratorBase {
     private int releaseYear;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Song> songList;
 
     public Album() {
