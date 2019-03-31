@@ -94,6 +94,10 @@ function apiCall(method, entity, body) {
         xhttp.open(method, newUrl, true);
         xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send(JSON.stringify(body));
+    } else if (method === 'DELETE') {
+        xhttp.open(method, newUrl, true);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+        xhttp.send();
     }
 }
 

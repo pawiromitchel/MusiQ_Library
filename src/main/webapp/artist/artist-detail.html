@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>MusiQ Library</title>
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1, 
+    <meta content=" initial-scale=1, name="viewport" shrink-to-fit=no" width=device-width,>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
@@ -14,27 +15,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-2">
-            <button type="button" class="btn btn-outline-secondary" style="margin: 10px">
+            <button class="btn btn-outline-secondary" style="margin: 10px" type="button">
                 <a href="../index.html"><i class="fas fa-home"> </i></a>
             </button>
         </div>
-        <div>
-            <h4>Artists</h4>
-            <table class="table table-light table-responsive table-hover table-bordered"
-                   style="background-color: rgba(225, 225, 225, 0.8); margin-left: 15%;">
-                <thead>
-                <tr>
-                    <td>Artist</td>
-                    <td>Action</td>
-                </tr>
-                </thead>
-                <tbody id="artistTable">
+        <div class="col-6" id="artistDetail">
 
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
-<script src="artists-controller.js"></script>
+<script src="artist-detail-controller.js">
+
+</script>
 </body>
 </html>
