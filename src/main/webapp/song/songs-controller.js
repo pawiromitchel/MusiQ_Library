@@ -10,7 +10,7 @@ function loadAllSongs() {
             const data = `
             <tr class="table-light" style="background-color: rgba(225, 225, 225, 0.8)">
                     <td id="song">
-                        <a href="./song-detail.html?id=${song.id}" style="color:black"">${song.title}</a>
+                        <a href="./song/song-detail.html?id=${song.id}" style="color:black"">${song.title}</a>
                      </td>
                     <td id="artist">${song.album.artist.artistName}</td>
                     <td id="album">${song.album.albumTitle}</td></tr>

@@ -2,6 +2,18 @@ loadSongsMenu();
 var songDataList = [];
 var responseText = [];
 
+function goToSongsMenu() {
+    window.location = "song/songs.html"
+}
+
+function goToArtistMenu() {
+    window.location = "artist/artists.html"
+}
+
+function goToAlbumMenu() {
+    window.location = "album/albums.html"
+}
+
 function addAlbumField() {
     const btn = document.getElementById('actAlbum');
     if (btn.style.display === "") {
@@ -44,7 +56,7 @@ function loadSongsMenu() {
         const songList = document.getElementById('songData');
         songDataList.forEach(song => {
             const data = `<tr class="table-light" style="background-color: rgba(225, 225, 225, 0.8)">
-            <a href="./song-detail.html?id=${song.id}" id="selectedSong" style="color:black">
+            <a href="./song/song-detail.html?id=${song.id}" id="selectedSong" style="color:black">
                     <p>Title: ${song.title}<br>
                     Artist: ${song.album.artist.artistName} <br>
                     Album:  ${song.album.albumTitle} <br></p>
@@ -82,6 +94,14 @@ function apiCall(method, entity, body) {
         xhttp.open(method, newUrl, true);
         xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send(JSON.stringify(body));
+    }
+}
+
+function showAlert(xhttp) {
+    if (xhttp.status === 200) {
+        alert('Successful');
+    } else if (xhttp.status === 400) {
+        alert(xhttp.responseText)
     }
 }
 
@@ -190,10 +210,4 @@ function getArtistTypes() {
     });
 }
 
-function showAlert(xhttp) {
-    if (xhttp.status === 200) {
-        alert('Successful');
-    } else if (xhttp.status === 400) {
-        alert(xhttp.responseText)
-    }
-}
+
