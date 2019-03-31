@@ -47,14 +47,16 @@ public class SongController {
     @POST
     public Response add(@Valid SongDTO songDTO) {
         try {
-            ArtistTypeCode artistTypeCode = modelMapper.map(songDTO.getAlbum().getArtist().getArtistType(), ArtistTypeCode.class);
-            Artist artist = modelMapper.map(songDTO.getAlbum().getArtist(), Artist.class);
-            artist.setArtistType(artistTypeCode);
+            if (songDTO.getAlbum() != null) {
+                ArtistTypeCode artistTypeCode = modelMapper.map(songDTO.getAlbum().getArtist().getArtistType(), ArtistTypeCode.class);
+                Artist artist = modelMapper.map(songDTO.getAlbum().getArtist(), Artist.class);
+                artist.setArtistType(artistTypeCode);
+            }
             Song song = modelMapper.map(songDTO, Song.class);
             songService.add(song);
         } catch (Exception e) {
             JPAConfiguration.getEntityManager().getTransaction().rollback();
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
         return Response.status(Response.Status.OK).build();
     }

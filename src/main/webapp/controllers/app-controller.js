@@ -1,5 +1,3 @@
-import {sweetalert} from '../sweetalert/sweetalert.js';
-
 loadSongsMenu();
 var songDataList = [];
 var responseText = [];
@@ -71,9 +69,9 @@ function apiCall(method, entity, body) {
 
     xhttp.onload = function () {
         if (this.status === 200 && method === "POST") {
-            showAlert(this.status);
+            showAlert(this);
         } else if (this.status === 400) {
-            showAlert(this.status);
+            showAlert(this);
         }
     };
 
@@ -134,9 +132,9 @@ function postData() {
         artist = document.getElementById('artist').value;
     }
 
-    validate(songTitle, artist, artistType, album);
+    const passed = validate(songTitle, artist, artistType, album);
 
-    if (songTitle) {
+    if (passed) {
         if (album && artist && artistType) {
             songData = {
                 "title": songTitle,
@@ -167,10 +165,18 @@ function postData() {
 }
 
 function validate(songTitle, artist, artistType, album) {
+    let passed = true;
 
     if (songTitle === '' || artist === '' || artistType === '' || album === '') {
-
+        alert('You have empty fields that are required');
+        passed = false;
     }
+
+    if (artist && artistType && !album) {
+        alert("Fire");
+        passed = false;
+    }
+    return passed;
 }
 
 function getArtistTypes() {
@@ -184,15 +190,10 @@ function getArtistTypes() {
     });
 }
 
-function showAlert(xhttpStatus) {
-    const successMsg = document.getElementById('successMsg');
-    const failedMsg = document.getElementById('failedMsg');
-    let alertType = '';
-    if (xhttpStatus === 200) {
-        successMsg.innerText += 'Successful';
-        successMsg.style.display = 'block'
-    } else if (xhttpStatus === 400) {
-        failedMsg.innerText += 'Failed';
-        failedMsg.style.display = 'block'
+function showAlert(xhttp) {
+    if (xhttp.status === 200) {
+        alert('Successful');
+    } else if (xhttp.status === 400) {
+        alert(xhttp.responseText)
     }
 }

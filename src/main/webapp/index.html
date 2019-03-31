@@ -9,8 +9,6 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet">
-    <script src="./sweetalert/sweetalert.js"></script>
-    <link href="./sweetalert/sweetalert.css" rel="stylesheet"/>
 </head>
 
 <body background="images/music-bg.jpg" class="img-fluid" style="background-size: 100%">
@@ -26,7 +24,7 @@
                     </a>
                 </div>
                 <div id="songMenu">
-                    <a class="text-dark" href="songs.html" onclick="loadAllSongs()">
+                    <a class="text-dark" href="./song/songs.html" onclick="loadAllSongs()">
                         <i class="fas fa-music"></i> Songs
                     </a>
                 </div>
@@ -44,7 +42,7 @@
         </div>
 
         <!--Content-->
-        <div class="col-10">
+        <div class="col-10" id="content">
             <h1>Welcome to the MusiQ Library</h1>
             <h3>Where we (almost) have every song</h3>
             <h6>If our developers weren't so lazy</h6>

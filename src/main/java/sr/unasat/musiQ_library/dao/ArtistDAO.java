@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+import static sr.unasat.musiQ_library.utlis.Constants.ENTITY_EXISTS_MSG;
+
 public class ArtistDAO {
 
     private EntityManager entityManager;
@@ -33,7 +35,7 @@ public class ArtistDAO {
             if (artists.get(i).getArtistName().toLowerCase().trim().equals(
                     artist.getArtistName().toLowerCase().trim())) {
                 entityManager.getTransaction().rollback();
-                throw new EntityExistsException();
+                throw new EntityExistsException(ENTITY_EXISTS_MSG);
             }
         }
         entityManager.persist(artist.getArtistType());
