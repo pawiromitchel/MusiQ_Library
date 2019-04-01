@@ -1,7 +1,5 @@
 package sr.unasat.musiQ_library.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.ws.rs.DefaultValue;
 import java.util.List;
@@ -17,7 +15,7 @@ public class Artist {
     @Column(name = "artist_name", nullable = false, unique = true)
     private String artistName;
 
-    @JsonIgnore
+    //    @JsonIgnore
     @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Album> album;
 
@@ -29,7 +27,7 @@ public class Artist {
     @DefaultValue(value = "false")
     private boolean isFollowed;
 
-    @OneToOne(mappedBy = "artist", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "artist", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private ArtistInfo artistInfo;
 
     public Artist() {

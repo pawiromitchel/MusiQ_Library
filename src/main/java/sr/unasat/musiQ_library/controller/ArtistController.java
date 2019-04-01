@@ -66,7 +66,7 @@ public class ArtistController {
         try {
             artistService.delete(id);
         } catch (Exception e) {
-            JPAConfiguration.getEntityManager().getTransaction().rollback();
+//            JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();
