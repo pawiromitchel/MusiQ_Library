@@ -17,12 +17,12 @@ public class ArtistDAO {
 
     public ArtistDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
-        artists = findAllArtists();
+        artists = findAllArtistsByAsc();
     }
 
-    public List<Artist> findAllArtists() {
+    public List<Artist> findAllArtistsByAsc() {
         entityManager.getTransaction().begin();
-        String jpql = "select a from Artist a";
+        String jpql = "select a from Artist a order by a.artistName ASC";
         TypedQuery<Artist> query = entityManager.createQuery(jpql, Artist.class);
         artists = query.getResultList();
         entityManager.getTransaction().commit();

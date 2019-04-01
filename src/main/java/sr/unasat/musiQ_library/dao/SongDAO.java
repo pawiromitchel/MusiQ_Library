@@ -16,10 +16,10 @@ public class SongDAO {
 
     public SongDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
-        songList = findAllSongs();
+        songList = findAllSongsByAsc();
     }
 
-    public List<Song> findAllSongs() {
+    public List<Song> findAllSongsByAsc() {
         entityManager.getTransaction().begin();
         String jpql = "select s from Song s";
         TypedQuery<Song> query = entityManager.createQuery(jpql, Song.class);

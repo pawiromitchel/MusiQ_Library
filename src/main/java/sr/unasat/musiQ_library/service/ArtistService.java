@@ -19,7 +19,7 @@ public class ArtistService {
     }
 
     public List<Artist> findAll() {
-        return artistDAO.findAllArtists();
+        return artistDAO.findAllArtistsByAsc();
     }
 
     public Artist add(Artist artist) {

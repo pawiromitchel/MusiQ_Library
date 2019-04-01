@@ -24,7 +24,7 @@ public class SongService {
     }
 
     public List<Song> findAll() {
-        return songDAO.findAllSongs();
+        return songDAO.findAllSongsByAsc();
     }
 
     public Song add(Song song) {

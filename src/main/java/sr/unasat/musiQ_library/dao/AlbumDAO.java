@@ -17,12 +17,12 @@ public class AlbumDAO {
 
     public AlbumDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
-        albums = findAllAlbums();
+        albums = findAllAlbumsByAsc();
     }
 
-    public List<Album> findAllAlbums() {
+    public List<Album> findAllAlbumsByAsc() {
         entityManager.getTransaction().begin();
-        String jpql = "select a from Album a";
+        String jpql = "select a from Album a ORDER BY ASC";
         TypedQuery<Album> query = entityManager.createQuery(jpql, Album.class);
         albums = query.getResultList();
         entityManager.getTransaction().commit();
