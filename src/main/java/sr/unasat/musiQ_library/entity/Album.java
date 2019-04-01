@@ -1,6 +1,6 @@
 package sr.unasat.musiQ_library.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import sr.unasat.musiQ_library.designPatterns.decorator.DecoratorBase;
 
 import javax.persistence.*;
@@ -18,13 +18,14 @@ public class Album implements DecoratorBase {
     private String albumTitle;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonManagedReference(value = "albumArtist")
     @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;
 
     @Column(name = "release_year", nullable = false)
     private int releaseYear;
 
-    @JsonIgnore
+    @JsonManagedReference(value = "albumSong")
     @OneToMany(mappedBy = "album", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Song> songList;
 

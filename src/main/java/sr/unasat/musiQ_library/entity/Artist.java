@@ -1,5 +1,7 @@
 package sr.unasat.musiQ_library.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.ws.rs.DefaultValue;
 import java.util.List;
@@ -15,7 +17,7 @@ public class Artist {
     @Column(name = "artist_name", nullable = false, unique = true)
     private String artistName;
 
-    //    @JsonIgnore
+    @JsonBackReference(value = "albumArtist")
     @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Album> album;
 
