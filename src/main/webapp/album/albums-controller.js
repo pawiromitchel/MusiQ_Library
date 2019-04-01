@@ -6,15 +6,20 @@ function loadAlbums() {
         let albumDataList = JSON.parse(responseText);
         const albumList = document.getElementById('albumData');
         albumDataList.forEach(album => {
-            const data = `<tr class="table-light" style="background-color: rgba(225, 225, 225, 0.8)">
-            <a href="./album/album-detail.html?id=${album.id}" id="selectedAlbum" style="color:black">
+            let data = `<tr class="table-light" style="background-color: rgba(225, 225, 225, 0.8)">
+            <a href="./album-detail.html?id=${album.id}" id="selectedAlbum" style="color:black">
                     <p><b>Album: ${album.albumTitle}</b><br>
-                    Released: ${album.releaseYear}<br>
                     Artist: ${album.artist.artistName} <br>
-                    Artist Type:  ${album.artist.artistType.artistType} <br></p>
-                    </a></tr>
+                    Artist Type:  ${album.artist.artistType.artistType} <br>
             `;
             window.sessionStorage.setItem(`${album.id}`, JSON.stringify(album));
+
+            if (album.releaseYear) {
+                let releaseYear = `
+                Released: ${album.releaseYear}</p></a></tr>
+                `;
+                data += releaseYear;
+            }
             albumList.innerHTML += data;
         })
     }

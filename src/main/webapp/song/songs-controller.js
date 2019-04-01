@@ -15,10 +15,10 @@ function loadAllSongs() {
                     <td id="artist">${song.album.artist.artistName}</td>
                     <td id="album">${song.album.albumTitle}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="viewSong(${song})">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="viewSong(${song.id})">
                             <i class="fas fa-eye"></i>
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteSong(${song})">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteSong(${song.id})">
                             <i class="fas fa-times-circle"></i>
                         </button>
                     </td>
@@ -59,13 +59,13 @@ function apiCall(method, entity) {
     }
 }
 
-function viewSong(song) {
-    window.location = `song-detail.html?id=${song.id}`;
+function viewSong(id) {
+    window.location = `song-detail.html?id=${id}`;
 }
 
-function deleteSong(song) {
-    const dialog = confirm("Are you sure you want to delete " + song.name);
+function deleteSong(id) {
+    const dialog = confirm("Are you sure you want to delete this song?");
     if (dialog) {
-        apiCall('DELETE', `song/${song.id}`);
+        apiCall('DELETE', `song/${id}`);
     }
 }

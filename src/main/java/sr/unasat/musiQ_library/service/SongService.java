@@ -29,10 +29,10 @@ public class SongService {
 
     public Song add(Song song) {
         if (song.getAlbum() != null) {
-            albumDAO.addAlbum(song.getAlbum());
             if (song.getAlbum().getArtist() != null) {
                 artistDAO.addArtist(song.getAlbum().getArtist());
             }
+            albumDAO.addAlbum(song.getAlbum());
         }
         songList.add(songDAO.addSong(song));
         return song;

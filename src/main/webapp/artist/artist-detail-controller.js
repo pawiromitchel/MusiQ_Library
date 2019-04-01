@@ -17,8 +17,13 @@ function setArtistDetail(artist) {
             <h4>Artist: ${artist.artistName}</h4>
             <h5>Artist Type: ${artist.artistType.artistType}</h5>
             <h5>Album: ${artist.album}</h5>
-            <h5>Artist Info: </h5><p style="background-color: white; height: 200px;
-                margin: 5px"> ${artist.artistInfo.info}</p>
         `;
     artistDetail.innerHTML += detail;
+    if (artist.artistInfo) {
+        let info = `
+        <h5>Artist Info: </h5><p style="background-color: white; height: 200px;
+                margin: 5px"> ${artist.artistInfo.info}</p>
+        `;
+        artistDetail.innerHTML += info;
+    }
 }
