@@ -65,6 +65,8 @@ function loadSongsMenu() {
             window.sessionStorage.setItem(`${song.id}`, JSON.stringify(song));
             songList.innerHTML += data;
         })
+    } else {
+        alert('Something went wrong.\nPlease contact the administrator');
     }
 }
 

@@ -16,12 +16,17 @@ function loadAllArtists() {
                         <button type="button" class="btn btn-primary btn-sm" onclick="viewArtist(${artist.id})">
                             <i class="fas fa-eye"></i>
                         </button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteArtist(${artist.id})">
+                            <i class="fas fa-times-circle"></i>
+                        </button>
                     </td>
                     </tr>
             `;
             window.sessionStorage.setItem(`${artist.id}`, JSON.stringify(artist));
             artistList.innerHTML += data;
         });
+    } else {
+        alert('Something went wrong.\nPlease contact the administrator');
     }
 }
 
@@ -56,4 +61,8 @@ function apiCall(method, entity) {
 
 function viewArtist(id) {
     window.location = `artist-detail.html?id=${id}`;
+}
+
+function deleteArtist(id) {
+    apiCall("DELETE", `artist/${id}`)
 }

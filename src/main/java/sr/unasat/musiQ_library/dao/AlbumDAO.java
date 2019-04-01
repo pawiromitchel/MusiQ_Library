@@ -22,7 +22,7 @@ public class AlbumDAO {
 
     public List<Album> findAllAlbumsByAsc() {
         entityManager.getTransaction().begin();
-        String jpql = "select a from Album a ORDER BY ASC";
+        String jpql = "select a from Album a ORDER BY a.albumTitle ASC";
         TypedQuery<Album> query = entityManager.createQuery(jpql, Album.class);
         albums = query.getResultList();
         entityManager.getTransaction().commit();
