@@ -20,6 +20,7 @@ function addAlbumField() {
         btn.style.display = 'none';
         const album = `
         <input class="form-control" id="album" placeholder="Album" type="text">
+        <input class="form-control" id="releaseYear" placeholder="Year" type="number" min="1900">
         `;
         document.getElementById('albumField').innerHTML += album;
 
@@ -146,10 +147,12 @@ function postData() {
     let artist = null;
     let artistType = null;
     let album = null;
+    let releaseYear = null;
     let songData = {};
 
     if (document.getElementById('album')) {
         album = document.getElementById('album').value;
+        releaseYear = document.getElementById('releaseYear').value;
     }
 
     if (document.getElementById('artistType') &&
@@ -158,7 +161,7 @@ function postData() {
         artist = document.getElementById('artist').value;
     }
 
-    const passed = validate(songTitle, artist, artistType, album);
+    const passed = validate(songTitle, artist, artistType, album, releaseYear);
 
     if (passed) {
         if (album && artist && artistType) {
@@ -166,6 +169,7 @@ function postData() {
                 "title": songTitle,
                 "album": {
                     "albumTitle": album,
+                    "releaseYear": releaseYear,
                     "artist": {
                         "artistName": artist,
                         "artistType": {
@@ -178,7 +182,8 @@ function postData() {
             songData = {
                 "title": songTitle,
                 "album": {
-                    "albumTitle": album
+                    "albumTitle": album,
+                    "releaseYear": releaseYear
                 }
             };
         } else {
@@ -190,10 +195,10 @@ function postData() {
     }
 }
 
-function validate(songTitle, artist, artistType, album) {
+function validate(songTitle, artist, artistType, album, releaseYear) {
     let passed = true;
 
-    if (songTitle === '' || artist === '' || artistType === '' || album === '') {
+    if (songTitle === '' || artist === '' || artistType === '' || album === '' || releaseYear === '') {
         alert('You have empty fields that are required');
         passed = false;
     }
@@ -202,7 +207,7 @@ function validate(songTitle, artist, artistType, album) {
         alert("Please fill out the artist info")
     }
 
-    if (album === '') {
+    if (album === '' || (releaseYear === '' || releaseYear <= 1900) && releaseYear.length === 4) {
         alert("Please add album info");
         passed = false;
     }

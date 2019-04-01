@@ -59,7 +59,7 @@ public class AlbumDAO {
             List<Song> songs = album.getSongList();
             for (int i = 0; i < songs.size(); i++) {
                 String songTitle = songs.get(i).getTitle();
-                songs.add(new Song(songTitle, album.getReleaseYear(), album, false));
+                songs.add(new Song(songTitle, album));
             }
             album.setSongList(songs);
         }

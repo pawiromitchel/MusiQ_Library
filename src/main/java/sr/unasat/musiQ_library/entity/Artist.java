@@ -21,10 +21,6 @@ public class Artist {
     @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Album> album;
 
-    @OneToOne
-    @JoinColumn(name = "artist_type", nullable = false)
-    private ArtistTypeCode artistType;
-
     @Column(name = "is_followed")
     @DefaultValue(value = "false")
     private boolean isFollowed;
@@ -35,10 +31,9 @@ public class Artist {
     public Artist() {
     }
 
-    public Artist(String artistName, ArtistTypeCode artistType, boolean isFollowed) {
+    public Artist(String artistName, String artistType) {
         this.artistName = artistName;
-        this.artistType = artistType;
-        this.isFollowed = isFollowed;
+//        this.artistType = artistType;
     }
 
     public Long getId() {
@@ -57,12 +52,13 @@ public class Artist {
         this.artistName = name;
     }
 
-    public ArtistTypeCode getArtistType() {
-        return artistType;
+    public String getArtistType() {
+//        return artistType;
+        return "";
     }
 
-    public void setArtistType(ArtistTypeCode artistType) {
-        this.artistType = artistType;
+    public void setArtistType(String artistType) {
+//        this.artistType = artistType;
     }
 
     public List<Album> getAlbum() {

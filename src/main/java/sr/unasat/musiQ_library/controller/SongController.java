@@ -2,11 +2,9 @@ package sr.unasat.musiQ_library.controller;
 
 import org.modelmapper.ModelMapper;
 import sr.unasat.musiQ_library.config.JPAConfiguration;
+import sr.unasat.musiQ_library.designPatterns.builder.BuilderImpl;
 import sr.unasat.musiQ_library.dto.ArtistDTO;
-import sr.unasat.musiQ_library.dto.ArtistTypeCodeDTO;
 import sr.unasat.musiQ_library.dto.SongDTO;
-import sr.unasat.musiQ_library.entity.Artist;
-import sr.unasat.musiQ_library.entity.ArtistTypeCode;
 import sr.unasat.musiQ_library.entity.Song;
 import sr.unasat.musiQ_library.service.SongService;
 
@@ -32,10 +30,7 @@ public class SongController {
         List<Song> songs = songService.findAll();
         SongDTO songDTO;
         for (Song song : songs) {
-            ArtistTypeCodeDTO artistTypeCodeDTO = modelMapper.map(song.getAlbum()
-                    .getArtist().getArtistType(), ArtistTypeCodeDTO.class);
             ArtistDTO artistDTO = modelMapper.map(song.getAlbum().getArtist(), ArtistDTO.class);
-            artistDTO.setArtistType(artistTypeCodeDTO);
             songDTO = modelMapper.map(song, SongDTO.class);
             songDTO.getAlbum().setArtist(artistDTO);
             songDTOS.add(songDTO);
@@ -47,13 +42,19 @@ public class SongController {
     @POST
     public Response add(@Valid SongDTO songDTO) {
         try {
-            if (songDTO.getAlbum() != null) {
-                ArtistTypeCode artistTypeCode = modelMapper.map(songDTO.getAlbum().getArtist().getArtistType(), ArtistTypeCode.class);
-                Artist artist = modelMapper.map(songDTO.getAlbum().getArtist(), Artist.class);
-                artist.setArtistType(artistTypeCode);
-            }
-            Song song = modelMapper.map(songDTO, Song.class);
-            songService.add(song);
+//            if (songDTO.getAlbum() != null) {
+//                ArtistTypeCode artistTypeCode = modelMapper.map(songDTO.getAlbum().getArtist().getArtistType(), ArtistTypeCode.class);
+//                Artist artist = modelMapper.map(songDTO.getAlbum().getArtist(), Artist.class);
+//                artist.setArtistType(artistTypeCode);
+//            }
+//            Song song = modelMapper.map(songDTO, Song.class);
+            BuilderImpl builder = new BuilderImpl();
+            builder.setSongTitle(songDTO.getTitle());
+            builder.setAlbum(songDTO.getAlbum().getAlbumTitle());
+            builder.setArtist(songDTO.getAlbum().getArtist().getArtistName());
+            builder.setArtistType(songDTO.getAlbum().getArtist().getArtistType());
+            builder.setReleaseYear(songDTO.getReleaseYear());
+            songService.add(builder.build());
         } catch (Exception e) {
             JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -116,10 +117,7 @@ public class SongController {
                     s = songs.get(random.nextInt(songs.size()));
                 }
             }
-            ArtistTypeCodeDTO artistTypeCodeDTO = modelMapper.map(s.getAlbum()
-                    .getArtist().getArtistType(), ArtistTypeCodeDTO.class);
             ArtistDTO artistDTO = modelMapper.map(s.getAlbum().getArtist(), ArtistDTO.class);
-            artistDTO.setArtistType(artistTypeCodeDTO);
             songDTO = modelMapper.map(s, SongDTO.class);
             songDTO.getAlbum().setArtist(artistDTO);
             randomSongs.add(songDTO);

@@ -1,7 +1,6 @@
 package sr.unasat.musiQ_library.dao;
 
 import sr.unasat.musiQ_library.entity.Artist;
-import sr.unasat.musiQ_library.entity.ArtistTypeCode;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -66,14 +65,5 @@ public class ArtistDAO {
         entityManager.remove(artist);
         entityManager.getTransaction().commit();
         return artist;
-    }
-
-    public List<ArtistTypeCode> getTypes() {
-        entityManager.getTransaction().begin();
-        String jpql = "select atc from ArtistTypeCode atc";
-        TypedQuery<ArtistTypeCode> query = entityManager.createQuery(jpql, ArtistTypeCode.class);
-        List<ArtistTypeCode> types = query.getResultList();
-        entityManager.getTransaction().commit();
-        return types;
     }
 }

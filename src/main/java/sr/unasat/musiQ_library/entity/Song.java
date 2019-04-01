@@ -44,11 +44,10 @@ public class Song {
         this.title = title;
     }
 
-    public Song(String title, int releaseYear, Album album, boolean isFavorite) {
+    public Song(String title, Album album) {
         this.title = title;
-        this.releaseYear = releaseYear;
+        this.releaseYear = album.getReleaseYear();
         this.album = album;
-        this.isFavorite = isFavorite;
     }
 
     public Long getId() {

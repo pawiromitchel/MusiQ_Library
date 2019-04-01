@@ -2,7 +2,6 @@ package sr.unasat.musiQ_library.service;
 
 import sr.unasat.musiQ_library.dao.ArtistDAO;
 import sr.unasat.musiQ_library.entity.Artist;
-import sr.unasat.musiQ_library.entity.ArtistTypeCode;
 
 import javax.persistence.EntityManager;
 import java.util.Iterator;
@@ -58,10 +57,6 @@ public class ArtistService {
                 artistIterator.remove();
             }
         }
-    }
-
-    public List<ArtistTypeCode> getArtistTypes() {
-        return artistDAO.getTypes();
     }
 }
 

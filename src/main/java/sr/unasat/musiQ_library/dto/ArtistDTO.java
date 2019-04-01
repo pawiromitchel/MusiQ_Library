@@ -9,7 +9,7 @@ public class ArtistDTO {
     private Long id;
     private String artistName;
     private List<AlbumDTO> album = new ArrayList<>();
-    private ArtistTypeCodeDTO artistType;
+    private String artistType;
     private boolean isFollowed;
     private ArtistInfoDTO artistInfo;
 
@@ -17,7 +17,7 @@ public class ArtistDTO {
     }
 
     public ArtistDTO(Long id, String artistName, List<AlbumDTO> album,
-                     ArtistTypeCodeDTO artistType, boolean isFollowed) {
+                     String artistType, boolean isFollowed) {
         this.id = id;
         this.artistName = artistName;
         this.album = album;
@@ -25,7 +25,7 @@ public class ArtistDTO {
         this.isFollowed = isFollowed;
     }
 
-    public ArtistDTO(Long id, String artistName, ArtistTypeCodeDTO artistType, boolean isFollowed) {
+    public ArtistDTO(Long id, String artistName, String artistType, boolean isFollowed) {
         this.id = id;
         this.artistName = artistName;
         this.artistType = artistType;
@@ -65,11 +65,11 @@ public class ArtistDTO {
         this.album = album;
     }
 
-    public ArtistTypeCodeDTO getArtistType() {
+    public String getArtistType() {
         return artistType;
     }
 
-    public void setArtistType(ArtistTypeCodeDTO artistType) {
+    public void setArtistType(String artistType) {
         this.artistType = artistType;
     }
 

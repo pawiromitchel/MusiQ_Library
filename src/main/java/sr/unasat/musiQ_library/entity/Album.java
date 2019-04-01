@@ -37,6 +37,11 @@ public class Album {
         this.releaseYear = releaseYear;
     }
 
+    public Album(String albumTitle, Artist artist) {
+        this.albumTitle = albumTitle;
+        this.artist = artist;
+    }
+
     public Long getId() {
         return id;
     }
