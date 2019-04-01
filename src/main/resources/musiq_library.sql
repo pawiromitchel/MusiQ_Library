@@ -100,9 +100,41 @@ CREATE TABLE IF NOT EXISTS `musiq_library`.`artist_info`
   ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `musiq_library`.`artist_type_code`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `musiq_library`.`artist_type_code`;
+
+CREATE TABLE IF NOT EXISTS `musiq_library`.`artist_type_code`
+(
+  `id`          BIGINT(4)   NOT NULL AUTO_INCREMENT,
+  `artist_type` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`)
+)
+  ENGINE = InnoDB;
+
+
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
+
+
+-- -----------------------------------------------------
+-- Data for table `musiq_library`.`artist_type_code`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `musiq_library`;
+INSERT INTO `musiq_library`.`artist_type_code` (`id`, `artist_type`)
+VALUES ('1', 'Solo');
+INSERT INTO `musiq_library`.`artist_type_code` (`id`, `artist_type`)
+VALUES ('2', 'Duo');
+INSERT INTO `musiq_library`.`artist_type_code` (`id`, `artist_type`)
+VALUES ('3', 'Group');
+INSERT INTO `musiq_library`.`artist_type_code` (`id`, `artist_type`)
+VALUES ('4', 'Band');
+
+COMMIT;
+
 
 -- -----------------------------------------------------
 -- Data for table `musiq_library`.`artist`
