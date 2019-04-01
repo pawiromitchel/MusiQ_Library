@@ -21,8 +21,8 @@ function setArtistDetail(artist) {
     artistDetail.innerHTML += detail;
     if (artist.artistInfo) {
         let info = `
-        <h5>Artist Info: </h5><p style="background-color: white; height: 200px;
-                margin: 5px"> ${artist.artistInfo.info}</p>
+        <h5>Artist Info: </h5><textarea rows="9" cols="70" disabled style="background-color: white; height: 200px;
+                margin: 5px"> ${artist.artistInfo.info}</textarea>
         `;
         artistDetail.innerHTML += info;
     }

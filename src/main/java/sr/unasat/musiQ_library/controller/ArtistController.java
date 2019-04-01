@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import sr.unasat.musiQ_library.config.JPAConfiguration;
 import sr.unasat.musiQ_library.dto.ArtistDTO;
 import sr.unasat.musiQ_library.entity.Artist;
+import sr.unasat.musiQ_library.entity.ArtistTypeCode;
 import sr.unasat.musiQ_library.service.ArtistService;
 
 import javax.ws.rs.*;
@@ -82,5 +83,13 @@ public class ArtistController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok(artistDTO).build();
+    }
+
+
+    @Path("/types")
+    @GET
+    public Response getTypes() {
+        List<ArtistTypeCode> types = artistService.getTypes();
+        return Response.ok(types).build();
     }
 }

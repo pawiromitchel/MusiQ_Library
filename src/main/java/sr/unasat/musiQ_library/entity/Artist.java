@@ -28,12 +28,15 @@ public class Artist {
     @OneToOne(mappedBy = "artist", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private ArtistInfo artistInfo;
 
+    @Column(name = "artist_type", nullable = false)
+    private String artistType;
+
     public Artist() {
     }
 
     public Artist(String artistName, String artistType) {
         this.artistName = artistName;
-//        this.artistType = artistType;
+        this.artistType = artistType;
     }
 
     public Long getId() {
@@ -53,12 +56,11 @@ public class Artist {
     }
 
     public String getArtistType() {
-//        return artistType;
-        return "";
+        return artistType;
     }
 
     public void setArtistType(String artistType) {
-//        this.artistType = artistType;
+        this.artistType = artistType;
     }
 
     public List<Album> getAlbum() {

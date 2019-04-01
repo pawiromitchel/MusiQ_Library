@@ -38,11 +38,3 @@ function getSongList(album) {
         songs.innerHTML += html;
     });
 }
-
-function addSong() {
-    let form = document.getElementById('inputSong');
-    let song = `
-    <input placeholder="Song Title"></form>
-    `;
-    form.innerHTML += song;
-}

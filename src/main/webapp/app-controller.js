@@ -172,9 +172,7 @@ function postData() {
                     "releaseYear": releaseYear,
                     "artist": {
                         "artistName": artist,
-                        "artistType": {
-                            "artistType": artistType
-                        }
+                        "artistType": artistType
                     }
                 }
             }
@@ -218,9 +216,9 @@ function getArtistTypes() {
     const typeOption = document.getElementById('artistType');
     apiCall("GET", 'artist/types', null);
     let data = JSON.parse(this.responseText);
-    data.forEach(type => {
+    data.forEach(artistType => {
         const option =
-            `<option value="${type}"><b>${type}</b></option>`;
+            `<option value="${artistType.type}"><b>${artistType.type}</b></option>`;
         typeOption.innerHTML += option;
     });
 }

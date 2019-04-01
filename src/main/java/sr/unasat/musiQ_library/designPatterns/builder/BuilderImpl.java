@@ -14,7 +14,7 @@ public class BuilderImpl implements Builder {
 
     public Song build() {
         return new Song(songTitle, new Album(album,
-                new Artist(artist, null), releaseYear));
+                new Artist(artist, artistType), releaseYear));
     }
 
     @Override
