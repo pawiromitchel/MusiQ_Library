@@ -86,27 +86,6 @@ CREATE TABLE IF NOT EXISTS `musiq_library`.`song`
 
 
 -- -----------------------------------------------------
--- Table `musiq_library`.`playlist`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `musiq_library`.`playlist`;
-
-CREATE TABLE IF NOT EXISTS `musiq_library`.`playlist`
-(
-  `id`            BIGINT(4)   NOT NULL AUTO_INCREMENT,
-  `playlist_name` VARCHAR(45) NOT NULL UNIQUE,
-  `song_id`       BIGINT(4)   NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `song_id_idx` (`song_id` ASC) VISIBLE,
-  CONSTRAINT `song_id`
-    FOREIGN KEY (`song_id`)
-      REFERENCES `musiq_library`.`song` (`id`)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
-)
-  ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `musiq_library`.`info`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `musiq_library`.artist_info;
