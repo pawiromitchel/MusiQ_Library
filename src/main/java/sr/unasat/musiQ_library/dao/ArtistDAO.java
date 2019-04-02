@@ -55,6 +55,7 @@ public class ArtistDAO {
 
     public Artist updateArtist(Artist artist) {
         entityManager.getTransaction().begin();
+        entityManager.merge(artist.getArtistInfo());
         entityManager.merge(artist);
         entityManager.getTransaction().commit();
         return artist;

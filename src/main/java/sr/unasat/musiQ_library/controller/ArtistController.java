@@ -46,12 +46,12 @@ public class ArtistController {
         return Response.ok().build();
     }
 
-    @Path("/{artistId}")
+    @Path("/update/{artistId}")
     @PUT
     public Response update(@PathParam("artistId") Long id, ArtistDTO artistDTO) {
         try {
             artistDTO.setId(id);
-            Artist artist = modelMapper.map(artistDTO, Artist.class);
+            Artist artist = artistService.getArtist(id);
             artistService.update(artist);
         } catch (Exception e) {
             JPAConfiguration.getEntityManager().getTransaction().rollback();
