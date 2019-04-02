@@ -32,7 +32,9 @@ public class AlbumController {
         for (Album album : albums) {
             List<SongDTO> songDTOS = new ArrayList<>();
             ArtistDTO artistDTO = modelMapper.map(album.getArtist(), ArtistDTO.class);
-            album.getSongList().forEach(song -> songDTOS.add(modelMapper.map(song, SongDTO.class)));
+            if (album.getSongList() != null) {
+                album.getSongList().forEach(song -> songDTOS.add(modelMapper.map(song, SongDTO.class)));
+            }
             albumDTO = modelMapper.map(album, AlbumDTO.class);
             albumDTO.setArtist(artistDTO);
             albumDTO.setSongList(songDTOS);

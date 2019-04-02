@@ -10,7 +10,7 @@ function loadAlbums() {
             <a href="./album-detail.html?id=${album.id}" id="selectedAlbum" style="color:black">
                     <p><b>Album: ${album.albumTitle}</b><br>
                     Artist: ${album.artist.artistName} <br>
-                    Artist Type:  ${album.artist.artistType.artistType} <br>
+                    Artist Type:  ${album.artist.artistType} <br>
             `;
             window.sessionStorage.setItem(`${album.id}`, JSON.stringify(album));
 

@@ -55,11 +55,6 @@ public class ArtistDTO {
         for (AlbumDTO albumDTO : album) {
             dtoList.add(albumDTO.getAlbumTitle());
         }
-//        for (int i = 0; i < album.size(); i++){
-//            albumDTO.setAlbum(album.get(i).getAlbum());
-//            albumDTO.setReleaseYear(album.get(i).getReleaseYear());
-//            dtoList.add(albumDTO);
-//        }
         return dtoList;
     }
 

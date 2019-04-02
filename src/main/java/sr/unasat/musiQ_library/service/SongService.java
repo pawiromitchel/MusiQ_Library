@@ -3,9 +3,11 @@ package sr.unasat.musiQ_library.service;
 import sr.unasat.musiQ_library.dao.AlbumDAO;
 import sr.unasat.musiQ_library.dao.ArtistDAO;
 import sr.unasat.musiQ_library.dao.SongDAO;
+import sr.unasat.musiQ_library.entity.Album;
 import sr.unasat.musiQ_library.entity.Song;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,6 +32,9 @@ public class SongService {
     public Song add(Song song) {
         if (song.getAlbum() != null) {
             if (song.getAlbum().getArtist() != null) {
+                List<Album> albums = new ArrayList<>();
+                albums.add(song.getAlbum());
+                song.getAlbum().getArtist().setAlbum(albums);
                 artistDAO.addArtist(song.getAlbum().getArtist());
             }
             albumDAO.addAlbum(song.getAlbum());

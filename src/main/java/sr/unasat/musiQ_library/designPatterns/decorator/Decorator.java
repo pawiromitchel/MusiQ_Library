@@ -11,6 +11,14 @@ public class Decorator implements DecoratorBase {
     private ArtistDTO artistDTO;
     private List<SongDTO> songDTOList = new ArrayList<>();
 
+    public Decorator() {
+    }
+
+    public Decorator(ArtistDTO artistDTO, List<SongDTO> songDTOS) {
+        this.artistDTO = artistDTO;
+        this.songDTOList = songDTOS;
+    }
+
     @Override
     public ArtistDTO getArtist() {
         return artistDTO;
@@ -24,7 +32,9 @@ public class Decorator implements DecoratorBase {
     @Override
     public List<String> getSongList() {
         List<String> songs = new ArrayList<>();
-        songDTOList.forEach(song -> songs.add(song.getTitle()));
+        if (songDTOList != null) {
+            songDTOList.forEach(song -> songs.add(song.getTitle()));
+        }
         return songs;
     }
 
